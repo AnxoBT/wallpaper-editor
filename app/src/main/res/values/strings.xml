@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wallpaper Editor</string>
+
+    <!-- Start screen -->
+    <string name="start_default_resolution">Default resolution: this phone\'s · %1$d × %2$d px</string>
+
+    <!-- Home -->
+    <string name="hub_subtitle">Edit your photos and turn your gallery into wallpapers that change with a tap.</string>
+    <string name="hub_edit">Edit a photo</string>
+    <string name="hub_edit_desc">Crop, expand, adjust and remove text or signatures</string>
+    <string name="hub_wallpapers">Wallpapers</string>
+    <string name="hub_wallpapers_desc">Photo slideshow with double tap and a custom clock</string>
+    <plurals name="hub_wallpapers_active">
+        <item quantity="one">Active · %d source</item>
+        <item quantity="other">Active · %d sources</item>
+    </plurals>
+    <string name="action_back">Back</string>
+
+    <!-- Photo picker -->
+    <string name="picker_title">Choose a photo</string>
+    <string name="picker_layer_title">Add an image on top</string>
+    <string name="picker_all">All photos</string>
+    <string name="picker_system">System picker</string>
+    <string name="picker_permission">To show your photos and folders right here, the app needs photo access. Nothing leaves your phone.</string>
+    <string name="picker_grant">Allow photo access</string>
+
+    <!-- Wallpapers -->
+    <string name="wallpaper_service_name">Wallpaper Editor · Photo slideshow</string>
+    <string name="wallpaper_service_desc">Your photos as wallpaper: double tap for the next one, triple tap to go back.</string>
+    <string name="clock_widget_name">Clock</string>
+    <string name="clock_widget_desc">A clock with the font, size and color you choose in Wallpaper Editor.</string>
+    <string name="wp_title">Wallpapers</string>
+    <string name="wp_previous">Previous wallpaper</string>
+    <string name="wp_next">Next wallpaper</string>
+    <string name="wp_active">Live wallpaper on</string>
+    <string name="wp_active_desc">Double tap an empty spot on the home screen to change it.</string>
+    <string name="wp_inactive">Live wallpaper off</string>
+    <string name="wp_inactive_desc">Turn it on to use your photos with gestures.</string>
+    <string name="wp_inactive_empty">Add a folder or some photos first.</string>
+    <string name="wp_activate">Turn on</string>
+    <string name="wp_refresh">Refresh</string>
+    <string name="wp_no_new_photos">No new photos</string>
+    <plurals name="wp_new_photos">
+        <item quantity="one">%1$d new photo</item>
+        <item quantity="other">%1$d new photos</item>
+    </plurals>
+    <string name="wp_section_photos">Your photos (%1$d)</string>
+    <string name="wp_add_folder">Folder</string>
+    <string name="wp_add_photos">Photos</string>
+    <string name="wp_folder_unnamed">Folder</string>
+    <string name="wp_photo">Photo</string>
+    <string name="wp_remove">Remove</string>
+    <string name="wp_empty">Add a folder (for example, Downloads): new photos you save there will join the slideshow automatically.</string>
+    <string name="wp_strip_hint">Tap a photo to show it now · long press for more options</string>
+    <string name="wp_show_now">Show now</string>
+    <string name="wp_edit">Edit</string>
+    <string name="wp_delete">Delete</string>
+    <string name="wp_target_current">Current wallpaper</string>
+    <string name="wp_target_selected">Selected photo</string>
+    <string name="wp_deleted">Photo moved to trash</string>
+    <string name="wp_delete_unsupported">This photo can\'t be deleted from here</string>
+    <string name="wp_lock_only">Lock screen only</string>
+    <string name="wp_lock_set">Set on the lock screen</string>
+    <string name="wp_no_previous">No previous wallpapers saved</string>
+    <string name="wp_error">Couldn\'t change the wallpaper</string>
+    <string name="wp_section_change">Wallpaper change</string>
+    <string name="wp_order">Order</string>
+    <string name="wp_order_random">Shuffle</string>
+    <string name="wp_order_sequential">In order</string>
+    <string name="wp_auto">Auto change</string>
+    <string name="wp_auto_never">Never</string>
+    <string name="wp_auto_unlock">When screen turns on</string>
+    <string name="wp_auto_15m">Every 15 min</string>
+    <string name="wp_auto_1h">Every hour</string>
+    <string name="wp_auto_6h">Every 6 h</string>
+    <string name="wp_auto_1d">Every day</string>
+    <string name="wp_auto_custom">Custom</string>
+    <string name="wp_auto_custom_value">Every %1$s</string>
+    <string name="wp_minutes">%1$d min</string>
+    <string name="wp_hours">%1$d h</string>
+    <string name="wp_hours_minutes">%1$d h %2$d min</string>
+    <string name="wp_auto_note">Time only counts while the home screen is showing; when you return to it, it changes right away if the time is up.</string>
+    <string name="wp_show_all">See all (%1$d)</string>
+    <string name="wp_all_title">Your photos (%1$d)</string>
+    <string name="wp_history">Remember %1$d previous wallpapers</string>
+    <string name="wp_tap_note">If double tap turns off the screen, disable “Double tap to lock” in your home screen settings.</string>
+    <string name="wp_section_where">Where it shows</string>
+    <string name="wp_place_home">Home</string>
+    <string name="wp_place_both">Home and lock</string>
+    <string name="wp_place_note">The lock screen gets the same photo, static (Android doesn\'t allow gestures there).</string>
+    <string name="wp_fit">Photo fit (Fit: whole photo, with a blurred background)</string>
+    <string name="wp_fit_fill">Fill</string>
+    <string name="wp_fit_blur">Fit</string>
+    <string name="wp_section_clock">Clock (widget)</string>
+    <string name="wp_add_widget">Add the clock to the home screen</string>
+    <string name="wp_widget_manual">Your launcher doesn\'t allow adding it from here: long press the home screen → Widgets → Wallpaper Editor.</string>
+    <string name="wp_clock_font">Font</string>
+    <string name="wp_clock_size">Time size: %1$d</string>
+    <string name="wp_clock_date">Show date</string>
+    <string name="wp_clock_date_size">Date size: %1$d</string>
+    <string name="wp_clock_24h">24-hour format</string>
+    <string name="wp_clock_shadow">Shadow</string>
+    <string name="wp_clock_align">Alignment</string>
+    <string name="wp_align_left">Left</string>
+    <string name="wp_align_center">Center</string>
+    <string name="wp_align_right">Right</string>
+    <string name="wp_clock_color">Color</string>
+    <string name="wp_color_auto">Auto</string>
+    <string name="wp_color_lock">Like lock screen</string>
+    <string name="wp_match_lock">Match the lock screen clock</string>
+    <string name="wp_widget_resize">To make it smaller or bigger: long press the clock on the home screen and drag its edges.</string>
+    <string name="wp_date_above">Date above</string>
+    <string name="wp_date_below">Date below</string>
+    <string name="wp_date_short">Tue, Oct 27</string>
+    <string name="wp_date_long">Tuesday, October 27</string>
+    <string name="wp_color_accent">From wallpaper</string>
+    <string name="wp_clock_note">Auto: white or dark depending on the wallpaper. From wallpaper: its most vivid color. It adapts every time the wallpaper changes. The lock screen clock is controlled by the system and can\'t be changed by an app.</string>
+    <string name="wp_battery_note">No background battery use: the wallpaper only works when switching photos, auto change is checked when the screen turns on, and the system keeps the clock time.</string>
+
+    <!-- Top bar -->
+    <string name="action_open">Open another image</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_redo">Redo</string>
+    <string name="action_compare">Hold to see the original</string>
+    <string name="action_export">Export</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_apply">Apply</string>
+    <string name="action_reset">Reset</string>
+    <string name="original_label">Original</string>
+
+    <!-- Tools -->
+    <string name="tool_fit">Frame</string>
+    <string name="tool_crop">Crop</string>
+    <string name="tool_filters">Filters</string>
+    <string name="tool_tune">Tune image</string>
+    <string name="tool_details">Details</string>
+    <string name="tool_heal">Healing</string>
+    <string name="tool_expand">Expand</string>
+    <string name="tool_vignette">Vignette</string>
+    <string name="tool_grain">Grain</string>
+    <string name="tool_curves">Curves</string>
+    <string name="tool_layers">Layers</string>
+    <string name="layer_add">Add image</string>
+    <string name="layer_empty">Add images on top of the photo: for a collage or to replace it with another one.</string>
+    <string name="layer_opacity">Opacity</string>
+    <string name="layer_fit">Fit</string>
+    <string name="layer_fill">Fill</string>
+    <string name="layer_center">Center</string>
+    <string name="layer_front">To front</string>
+    <string name="layer_back">To back</string>
+    <string name="layer_delete">Remove</string>
+    <string name="layer_hint">Tap an image to select it · drag, pinch or rotate with two fingers · ✓ merges it into the photo so you can crop or retouch the whole</string>
+    <string name="tool_brush">Brush</string>
+    <string name="tool_lens_blur">Lens blur</string>
+    <string name="tool_glamour">Glamour</string>
+    <string name="tool_hdr">HDR</string>
+    <string name="tool_drama">Drama</string>
+    <string name="group_compose">Compose</string>
+    <string name="group_adjust">Adjust</string>
+    <string name="group_effects">Effects</string>
+
+    <!-- Parameters -->
+    <string name="param_brightness">Brightness</string>
+    <string name="param_contrast">Contrast</string>
+    <string name="param_saturation">Saturation</string>
+    <string name="param_ambiance">Ambiance</string>
+    <string name="param_highlights">Highlights</string>
+    <string name="param_shadows">Shadows</string>
+    <string name="param_warmth">Warmth</string>
+    <string name="param_tint">Tint</string>
+    <string name="param_dehaze">Dehaze</string>
+    <string name="param_lens_strength">Blur</string>
+    <string name="param_lens_transition">Transition</string>
+    <string name="param_lens_vignette">Vignette</string>
+    <string name="param_glow">Glow</string>
+    <string name="param_filter_strength">Strength</string>
+
+    <!-- Curves -->
+    <string name="curve_rgb">RGB</string>
+    <string name="curve_red">Red</string>
+    <string name="curve_green">Green</string>
+    <string name="curve_blue">Blue</string>
+    <string name="curve_linear">Linear</string>
+    <string name="curve_soft_contrast">Soft contrast</string>
+    <string name="curve_strong_contrast">Strong contrast</string>
+    <string name="curve_brighten">Brighten</string>
+    <string name="curve_darken">Darken</string>
+    <string name="curve_matte">Matte</string>
+    <string name="curve_faded">Faded</string>
+    <string name="curves_hint">Drag the points · tap the curve to add one · long press a point to remove it</string>
+
+    <!-- Brush -->
+    <string name="brush_exposure">Exposure</string>
+    <string name="brush_temperature">Temperature</string>
+    <string name="brush_saturation">Saturation</string>
+    <string name="brush_structure">Structure</string>
+    <string name="brush_value">Value</string>
+    <string name="brush_erase">Erase</string>
+    <string name="brush_hint">Paint where you want the effect · value 0 erases · two fingers to zoom</string>
+
+    <!-- Lens blur -->
+    <string name="lens_radial">Elliptical</string>
+    <string name="lens_linear">Linear</string>
+    <string name="lens_hint">Drag to move the focus · pinch to resize it · rotate with two fingers</string>
+
+    <!-- History -->
+    <string name="action_history">History</string>
+    <string name="history_title">Edit history</string>
+    <string name="history_original">Original photo</string>
+    <string name="history_hint">Tap a step to go back to it. Later steps are kept until you make a new change.</string>
+    <string name="param_structure">Structure</string>
+    <string name="param_sharpen">Sharpening</string>
+    <string name="param_vignette">Strength</string>
+    <string name="param_vignette_size">Center size</string>
+    <string name="param_grain">Grain</string>
+    <string name="param_grain_size">Grain size</string>
+    <string name="gesture_hint">Swipe ↕ to choose · ↔ to adjust</string>
+
+    <!-- Screen tool -->
+    <string name="width_label">Width (px)</string>
+    <string name="height_label">Height (px)</string>
+    <string name="resolution_error">Enter values between %1$d and %2$d px</string>
+
+    <!-- Expand -->
+    <string name="fill_smart">Smart</string>
+    <string name="fill_white">White</string>
+    <string name="fill_black">Black</string>
+    <string name="expand_hint">Drag any edge outward to add canvas</string>
+    <string name="expand_fit_screen">Fit to screen (%1$d × %2$d)</string>
+    <string name="expand_size">%1$d × %2$d px</string>
+
+    <string name="detail_clean">Clean background</string>
+    <string name="detail_texture">With texture</string>
+    <string name="detail_clean_desc">Just the background, without specks or spots.</string>
+    <string name="detail_texture_desc">Invents new texture from the photo: clouds, stars, grain, gradients, without repeating patterns. To blend joins: Heal › Blend.</string>
+
+    <!-- Healing -->
+    <string name="heal_hint">Paint over what you want to remove · two fingers to zoom</string>
+    <string name="heal_hint_rect">Drag a rectangle over the signature or object · two fingers to zoom</string>
+    <string name="heal_shape_brush">Brush</string>
+    <string name="heal_shape_rect">Rectangle</string>
+    <string name="heal_engine_ai">AI</string>
+    <string name="heal_engine_classic">Classic</string>
+    <string name="heal_detect_text">Detect text</string>
+    <string name="msg_no_text">No text found. Mark it with the rectangle.</string>
+    <string name="msg_text_found">Text areas marked for removal: %1$d</string>
+    <string name="msg_text_error">Couldn\'t analyze the image</string>
+    <string name="brush_size">Brush</string>
+    <string name="undo_stroke">Undo stroke</string>
+    <string name="processing">Filling…</string>
+
+    <!-- Frame -->
+    <string name="preset_device">This phone %1$d×%2$d</string>
+    <string name="preset_fhd_plus">FHD+ 1080×2340</string>
+    <string name="preset_qhd_plus">QHD+ 1440×3200</string>
+    <string name="preset_fhd_portrait">1080×1920</string>
+    <string name="preset_tablet">Tablet 1600×2560</string>
+    <string name="preset_square">Square 1080</string>
+    <string name="preset_pc_fhd">PC 1920×1080</string>
+    <string name="preset_pc_qhd">PC 2560×1440</string>
+    <string name="fill_blur">Blur</string>
+    <string name="frame_fit">Fit</string>
+    <string name="frame_fill">Fill</string>
+    <string name="frame_rotate">Rotate 90°</string>
+    <string name="frame_flip">Flip</string>
+    <string name="frame_hint">Drag: move · Pinch: zoom · Two fingers: rotate</string>
+    <string name="frame_nudge">Move</string>
+    <string name="fit_tab_size">Size</string>
+    <string name="fit_tab_frame">Fit</string>
+    <string name="fit_tab_precise">Precise</string>
+    <string name="fit_hide_options">Hide options to see the image bigger</string>
+    <string name="fit_show_options">Show options</string>
+    <string name="fit_zoom_value">Zoom: %1$.0f %%</string>
+    <string name="fit_rotation_value">Rotation: %1$.1f°</string>
+    <string name="fit_zoom_in">Zoom in</string>
+    <string name="fit_zoom_out">Zoom out</string>
+    <string name="fit_rotate_left">Rotate left</string>
+    <string name="fit_rotate_right">Rotate right</string>
+    <string name="frame_shift">%1$d, %2$d px</string>
+    <string name="frame_magnet">Snap</string>
+    <string name="nudge_left">Move left</string>
+    <string name="nudge_right">Move right</string>
+    <string name="nudge_up">Move up</string>
+    <string name="nudge_down">Move down</string>
+    <string name="frame_info">Zoom %1$d%% · %2$d°</string>
+    <string name="frame_empty_fill">Gap fill</string>
+
+    <string name="frame_align">Align</string>
+    <string name="align_left">Align left</string>
+    <string name="align_center_h">Center horizontally</string>
+    <string name="align_right">Align right</string>
+    <string name="align_top">Align top</string>
+    <string name="align_center_v">Center vertically</string>
+    <string name="align_bottom">Align bottom</string>
+
+    <!-- Crop -->
+    <string name="crop_free">Free</string>
+    <string name="crop_original">Original</string>
+    <string name="crop_square">1:1</string>
+    <string name="crop_4_5">4:5</string>
+    <string name="crop_3_4">3:4</string>
+    <string name="crop_9_16">9:16</string>
+    <string name="crop_screen">Screen</string>
+    <string name="crop_16_9">16:9</string>
+    <string name="crop_hint">Drag the corners or sides · drag inside to move</string>
+
+    <!-- Filters -->
+    <string name="filter_none">Original</string>
+    <string name="filter_bw">B&amp;W</string>
+    <string name="filter_noir">Noir</string>
+    <string name="filter_sepia">Sepia</string>
+    <string name="filter_invert">Invert</string>
+    <string name="filter_vintage">Vintage</string>
+    <string name="filter_warm">Warm</string>
+    <string name="filter_cool">Cool</string>
+    <string name="filter_drama">Drama</string>
+    <string name="filter_vivid">Vivid</string>
+    <string name="filter_matte">Matte</string>
+    <string name="filter_cinema">Cinema</string>
+    <string name="filter_intensity">Strength</string>
+
+    <!-- Export -->
+    <string name="export_title">Export · %1$d × %2$d px</string>
+    <string name="format_png">PNG (lossless)</string>
+    <string name="format_jpeg">JPEG (quality 100)</string>
+    <string name="save_gallery">Save to Gallery</string>
+    <string name="save_folder">Save to: %1$s</string>
+    <string name="save_folder_default">Pictures/Wallpaper Editor</string>
+    <string name="save_folder_change">Change</string>
+    <string name="save_folder_reset">Default</string>
+    <string name="save_mode_copy">Save a copy</string>
+    <string name="save_mode_replace">Replace original</string>
+    <string name="save_replace_button">Replace the original photo</string>
+    <string name="save_replace_warning">The original photo is overwritten with this version (%1$d × %2$d px), in the same format. This can\'t be undone. Android will ask for permission.</string>
+    <string name="save_replace_unavailable">Only photos stored on the phone can be replaced (not cloud photos).</string>
+    <string name="msg_replaced">Original photo replaced (%2$d × %3$d px)</string>
+    <string name="msg_replace_denied">Permission to modify the original photo wasn\'t granted</string>
+    <string name="msg_replace_unavailable">This photo can\'t be replaced; save a copy instead</string>
+    <string name="set_wallpaper_title">Set as wallpaper</string>
+    <string name="wallpaper_home">Home</string>
+    <string name="wallpaper_lock">Lock</string>
+    <string name="wallpaper_both">Both</string>
+    <string name="exporting">Processing at maximum quality…</string>
+
+    <!-- Messages -->
+    <string name="msg_saved">Saved to %1$s (%2$d × %3$d px)</string>
+    <string name="msg_folder_error">Can\'t write to the selected folder. Choose it again in Export.</string>
+    <string name="msg_wallpaper_set">Wallpaper set</string>
+    <string name="msg_load_error">Couldn\'t open the image</string>
+    <string name="msg_export_error">Export failed: %1$s</string>
+    <string name="msg_render_error">Couldn\'t generate the preview</string>
+    <string name="msg_oom">Not enough memory for that resolution</string>
+    <string name="msg_no_image">Select an image first</string>
+    <string name="msg_permission_denied">Storage permission is needed to save on Android 9 or lower</string>
+</resources>

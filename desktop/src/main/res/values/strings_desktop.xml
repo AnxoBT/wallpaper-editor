@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Solo en Windows -->
+    <string name="desktop_add_library">Add a photo folder</string>
+    <string name="desktop_stop">Stop</string>
+    <string name="desktop_active_desc">It changes on its own while the app is open or in the system tray.</string>
+    <string name="desktop_inactive_desc">Start it to change the desktop background with your photos.</string>
+    <string name="desktop_keep_note">Nothing runs between changes. Closing the window with the slideshow on leaves it in the system tray; use Exit there to stop it. The background is prepared for your main screen.</string>
+    <string name="desktop_minutes">minutes</string>
+    <string name="desktop_tray_open">Open</string>
+    <string name="desktop_tray_exit">Exit</string>
+
+    <!-- Textos del móvil que aquí dicen otra cosa -->
+    <string name="hub_wallpapers_desc">A slideshow of your photos on the Windows desktop</string>
+    <string name="start_default_resolution">Default resolution: this PC\'s · %1$d × %2$d</string>
+    <string name="preset_device">This PC %1$d×%2$d</string>
+    <string name="save_replace_unavailable">Only photos stored as files on this PC can be replaced.</string>
+    <string name="settings_language_note">By default the app uses your Windows language.</string>
+    <string name="open_in_gallery">Show in its folder</string>
+    <string name="picker_system">Open a file</string>
+    <string name="wallpaper_home">Desktop</string>
+    <string name="save_gallery">Save</string>
+    <string name="wp_empty">Add a folder: new photos saved in it join the slideshow on their own.</string>
+    <string name="frame_hint">Drag: move · Wheel: zoom · Shift + wheel: rotate</string>
+    <string name="layer_hint">Click an image to select it · drag it · wheel: size · Shift + wheel: rotate · ✓ merges it into the photo for cropping, healing…</string>
+    <string name="brush_hint">Paint where you want the effect · value 0 erases · wheel: zoom</string>
+    <string name="lens_hint">Drag to move the focus · wheel: size · Shift + wheel: rotate</string>
+    <string name="heal_hint">Paint over what you want to remove · wheel: zoom</string>
+    <string name="heal_hint_rect">Drag a rectangle over the signature or object · wheel: zoom</string>
+    <string name="curves_hint">Drag the points · click the curve to add one · hold a point to remove it</string>
+    <string name="tags_empty">No tags yet. Hold the mouse button on a photo to tag it.</string>
+    <string name="tags_pick">Pick a tag or type to search. Hold the mouse button on a photo to change its tags.</string>
+    <string name="wp_add_tag_empty">No tags yet. Hold the mouse button on photos in the editor\'s picker to tag them.</string>
+    <string name="hub_subtitle">Edit your photos and turn your folders into changing desktop wallpapers.</string>
+    <string name="wp_active">Slideshow on</string>
+    <string name="wp_inactive">Slideshow stopped</string>
+    <string name="heal_hint_mix">Paint over a join to blend its colours · wheel: zoom</string>
+    <string name="heal_hint_shuffle">Paint over a repeated pattern to break it up, keeping its grain · wheel: zoom</string>
+    <string name="wp_all_outside_note">Faded photos are not in the slideshow. Clicking one sets it as wallpaper until the next change.</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Solo en Windows -->
+    <string name="desktop_add_library">Añadir una carpeta de fotos</string>
+    <string name="desktop_stop">Detener</string>
+    <string name="desktop_active_desc">Cambia solo mientras la app está abierta o en la bandeja del sistema.</string>
+    <string name="desktop_inactive_desc">Ponlo en marcha para cambiar el fondo del escritorio con tus fotos.</string>
+    <string name="desktop_keep_note">Entre cambios no hay nada en marcha. Si cierras la ventana con el pase activo, se queda en la bandeja del sistema; para pararlo, usa Salir allí. El fondo se prepara para la pantalla principal.</string>
+    <string name="desktop_minutes">minutos</string>
+    <string name="desktop_tray_open">Abrir</string>
+    <string name="desktop_tray_exit">Salir</string>
+
+    <!-- Textos del móvil que aquí dicen otra cosa -->
+    <string name="hub_wallpapers_desc">Pase de tus fotos en el escritorio de Windows</string>
+    <string name="start_default_resolution">Resolución por defecto: la de este PC · %1$d × %2$d</string>
+    <string name="preset_device">Este PC %1$d×%2$d</string>
+    <string name="save_replace_unavailable">Solo se pueden reemplazar las fotos guardadas como archivo en este PC.</string>
+    <string name="settings_language_note">Por defecto la app usa el idioma de Windows.</string>
+    <string name="open_in_gallery">Mostrar en su carpeta</string>
+    <string name="picker_system">Abrir un archivo</string>
+    <string name="wallpaper_home">Escritorio</string>
+    <string name="save_gallery">Guardar</string>
+    <string name="wp_empty">Añade una carpeta: las fotos nuevas que guardes en ella entran solas en el pase.</string>
+    <string name="frame_hint">Arrastra: mover · Rueda: zoom · Mayús + rueda: girar</string>
+    <string name="layer_hint">Haz clic en una imagen para elegirla · arrástrala · rueda: tamaño · Mayús + rueda: girar · ✓ la une a la foto para recortar, corregir…</string>
+    <string name="brush_hint">Pinta donde quieras aplicar el efecto · valor 0 borra · rueda: zoom</string>
+    <string name="lens_hint">Arrastra para mover el foco · rueda: tamaño · Mayús + rueda: girar</string>
+    <string name="heal_hint">Pinta sobre lo que quieras borrar · rueda: zoom</string>
+    <string name="heal_hint_rect">Arrastra un rectángulo sobre la firma o el objeto · rueda: zoom</string>
+    <string name="curves_hint">Arrastra los puntos · haz clic en la curva para añadir uno · mantén pulsado un punto para quitarlo</string>
+    <string name="tags_empty">Aún no hay etiquetas. Mantén pulsado el botón del ratón sobre una foto para ponerle etiquetas.</string>
+    <string name="tags_pick">Elige una etiqueta o escribe para buscar. Mantén pulsado el botón del ratón sobre una foto para cambiar sus etiquetas.</string>
+    <string name="wp_add_tag_empty">Aún no hay etiquetas. Mantén pulsado el ratón sobre las fotos en el selector del editor para ponérselas.</string>
+    <string name="hub_subtitle">Edita tus fotos y convierte tus carpetas en fondos de escritorio que cambian.</string>
+    <string name="wp_active">Pase de fondos en marcha</string>
+    <string name="wp_inactive">Pase de fondos detenido</string>
+    <string name="heal_hint_mix">Pinta sobre una unión para fundir sus colores · rueda: zoom</string>
+    <string name="heal_hint_shuffle">Pinta sobre un patrón repetido para romperlo, sin perder el grano · rueda: zoom</string>
+    <string name="wp_all_outside_note">Las atenuadas no entran en el pase. Si haces clic en una, se pone de fondo hasta el siguiente cambio.</string>
+</resources>

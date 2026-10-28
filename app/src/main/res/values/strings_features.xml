@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wp_schedule_title">When to use it</string>
+    <string name="wp_schedule_always">Always</string>
+    <string name="wp_schedule_day">Daytime (8–20 h)</string>
+    <string name="wp_schedule_night">Night</string>
+    <string name="wp_schedule_weekdays">Weekdays</string>
+    <string name="wp_schedule_weekend">Weekend</string>
+
+    <string name="wp_misaligned_open">Check photos that don\'t fit</string>
+    <string name="wp_misaligned_title">Photos that don\'t fit</string>
+    <string name="wp_misaligned_checking">Checking your photos…</string>
+    <string name="wp_misaligned_none">All your photos have the shape of your screen.</string>
+    <plurals name="wp_misaligned_found">
+        <item quantity="one">%1$d photo has a different shape from your screen: it will be cropped or get bars. Tap it to fix it in the editor.</item>
+        <item quantity="other">%1$d photos have a different shape from your screen: they will be cropped or get bars. Tap one to fix it in the editor.</item>
+    </plurals>
+
+    <string name="redo_stroke">Redo stroke</string>
+    <string name="save_folder_original">Next to the original (%1$s)</string>
+
+    <string name="unsaved_title">Leave without saving?</string>
+    <string name="unsaved_text">The changes to this photo will be lost.</string>
+    <string name="unsaved_discard">Leave</string>
+    <string name="unsaved_keep">Keep editing</string>
+    <string name="recent_title">Recently edited</string>
+
+    <string name="wp_gestures">Gestures on the home screen (on an empty spot)</string>
+    <string name="wp_gesture_double">Double tap</string>
+    <string name="wp_gesture_triple">Triple tap</string>
+    <string name="wp_tap_next">Next</string>
+    <string name="wp_tap_previous">Previous</string>
+    <string name="wp_tap_random">Random photo</string>
+    <string name="wp_tap_toggle_auto">Pause / resume auto change</string>
+    <string name="wp_tap_none">Nothing</string>
+    <string name="wp_auto_paused">Auto change is paused.</string>
+    <string name="wp_auto_resume">Resume</string>
+
+    <string name="save_show_on_wallpaper">Set it as the live wallpaper when saving</string>
+    <string name="set_wallpaper_replaces_live">A fixed home screen wallpaper replaces the live wallpaper.</string>
+
+    <string name="tags_title">Tags</string>
+    <string name="tags_none">This photo has no tags yet.</string>
+    <string name="tags_add_hint">New tag</string>
+    <string name="tags_add">Add</string>
+    <string name="tags_search">Search by tag</string>
+    <string name="tags_search_hint">Search by tag</string>
+    <string name="tags_clear">Clear</string>
+    <string name="tags_empty">No tags yet. Long-press a photo to tag it.</string>
+    <string name="tags_pick">Pick a tag or type to search. Long-press a photo to change its tags.</string>
+    <string name="tags_no_results">No photos with that tag.</string>
+    <string name="wp_add_tag">Filter by tag</string>
+    <string name="wp_add_tag_empty">No tags yet. Long-press photos in the editor\'s photo picker to tag them.</string>
+    <string name="settings_tags">Photo tags</string>
+    <string name="settings_tags_import">Import tags</string>
+    <string name="settings_tags_import_desc">From a JSON file ({\"photo.jpg\": [\"tag\"]})</string>
+    <string name="settings_tags_export">Export tags</string>
+    <string name="settings_tags_export_desc">%1$d tagged photos</string>
+    <string name="settings_tags_imported">Tags imported for %1$d photos.</string>
+    <string name="settings_tags_error">Could not read that file.</string>
+    <plurals name="tags_results">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
+
+    <string name="tag_favorites">favorites</string>
+    <string name="tags_favorite">Favorite</string>
+    <string name="tags_untagged">Untagged</string>
+    <string name="tags_rename_title">Edit tag</string>
+    <string name="tags_rename_hint">Name</string>
+    <string name="tags_delete">Delete</string>
+    <string name="tags_rename_save">Save</string>
+    <string name="settings_tags_manage">Manage tags</string>
+    <string name="settings_tags_manage_desc">Rename or delete them (%1$d tags)</string>
+    <string name="open_in_gallery">Open in gallery</string>
+    <string name="tags_manage_hint">Search or create a tag</string>
+    <string name="tags_create">Create \"%1$s\"</string>
+    <string name="settings_tags_exported">Tags saved: %1$d photos.</string>
+    <string name="heal_engine_mix">Blend</string>
+    <string name="heal_engine_shuffle">Shuffle</string>
+    <string name="wp_tag_filter_note">Filter on: the wallpaper only uses photos from your sources that have all these tags.</string>
+    <string name="wp_tag_filter_empty">No photo in your folders has all these tags. Nothing changes until you remove a tag or add a folder.</string>
+    <string name="heal_hint_mix">Paint over a join to blend its colours · two fingers to zoom</string>
+    <string name="heal_hint_shuffle">Paint over a repeated pattern to break it up, keeping its grain · two fingers to zoom</string>
+    <string name="wp_all_only_filter">Only the filter: %1$s · %2$d</string>
+    <string name="wp_all_outside_note">Faded photos are not in the slideshow. Tapping one sets it as wallpaper until the next change.</string>
+</resources>

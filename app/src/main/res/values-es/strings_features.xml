@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wp_schedule_title">Cuándo usarla</string>
+    <string name="wp_schedule_always">Siempre</string>
+    <string name="wp_schedule_day">De día (8–20 h)</string>
+    <string name="wp_schedule_night">De noche</string>
+    <string name="wp_schedule_weekdays">Entre semana</string>
+    <string name="wp_schedule_weekend">Fin de semana</string>
+
+    <string name="wp_misaligned_open">Revisar fotos que no encajan</string>
+    <string name="wp_misaligned_title">Fotos que no encajan</string>
+    <string name="wp_misaligned_checking">Revisando tus fotos…</string>
+    <string name="wp_misaligned_none">Todas tus fotos tienen la forma de tu pantalla.</string>
+    <plurals name="wp_misaligned_found">
+        <item quantity="one">%1$d foto tiene otra forma que tu pantalla: se recortará o quedarán bandas. Tócala para arreglarla en el editor.</item>
+        <item quantity="other">%1$d fotos tienen otra forma que tu pantalla: se recortarán o quedarán bandas. Toca una para arreglarla en el editor.</item>
+    </plurals>
+
+    <string name="redo_stroke">Rehacer trazo</string>
+    <string name="save_folder_original">Junto a la original (%1$s)</string>
+
+    <string name="unsaved_title">¿Salir sin guardar?</string>
+    <string name="unsaved_text">Se perderán los cambios de esta foto.</string>
+    <string name="unsaved_discard">Salir</string>
+    <string name="unsaved_keep">Seguir editando</string>
+    <string name="recent_title">Editadas hace poco</string>
+
+    <string name="wp_gestures">Gestos en el escritorio (en un hueco vacío)</string>
+    <string name="wp_gesture_double">Doble toque</string>
+    <string name="wp_gesture_triple">Triple toque</string>
+    <string name="wp_tap_next">Siguiente</string>
+    <string name="wp_tap_previous">Anterior</string>
+    <string name="wp_tap_random">Foto al azar</string>
+    <string name="wp_tap_toggle_auto">Pausar / reanudar el cambio automático</string>
+    <string name="wp_tap_none">Nada</string>
+    <string name="wp_auto_paused">El cambio automático está en pausa.</string>
+    <string name="wp_auto_resume">Reanudar</string>
+
+    <string name="save_show_on_wallpaper">Ponerla ya de fondo (fondo dinámico) al guardar</string>
+    <string name="set_wallpaper_replaces_live">Un fondo fijo en Inicio quita el fondo dinámico.</string>
+
+    <string name="tags_title">Etiquetas</string>
+    <string name="tags_none">Esta foto aún no tiene etiquetas.</string>
+    <string name="tags_add_hint">Nueva etiqueta</string>
+    <string name="tags_add">Añadir</string>
+    <string name="tags_search">Buscar por etiqueta</string>
+    <string name="tags_search_hint">Buscar por etiqueta</string>
+    <string name="tags_clear">Borrar</string>
+    <string name="tags_empty">Aún no hay etiquetas. Mantén pulsada una foto para ponerle etiquetas.</string>
+    <string name="tags_pick">Elige una etiqueta o escribe para buscar. Mantén pulsada una foto para cambiar sus etiquetas.</string>
+    <string name="tags_no_results">Ninguna foto con esa etiqueta.</string>
+    <string name="wp_add_tag">Filtrar por etiqueta</string>
+    <string name="wp_add_tag_empty">Aún no hay etiquetas. Mantén pulsadas las fotos en el selector del editor para ponérselas.</string>
+    <string name="settings_tags">Etiquetas de las fotos</string>
+    <string name="settings_tags_import">Importar etiquetas</string>
+    <string name="settings_tags_import_desc">Desde un archivo JSON ({\"foto.jpg\": [\"etiqueta\"]})</string>
+    <string name="settings_tags_export">Exportar etiquetas</string>
+    <string name="settings_tags_export_desc">%1$d fotos con etiquetas</string>
+    <string name="settings_tags_imported">Etiquetas importadas en %1$d fotos.</string>
+    <string name="settings_tags_error">No se ha podido leer ese archivo.</string>
+    <plurals name="tags_results">
+        <item quantity="one">%d foto</item>
+        <item quantity="other">%d fotos</item>
+    </plurals>
+
+    <string name="tag_favorites">favoritas</string>
+    <string name="tags_favorite">Favorita</string>
+    <string name="tags_untagged">Sin etiquetas</string>
+    <string name="tags_rename_title">Editar etiqueta</string>
+    <string name="tags_rename_hint">Nombre</string>
+    <string name="tags_delete">Borrar</string>
+    <string name="tags_rename_save">Guardar</string>
+    <string name="settings_tags_manage">Gestionar etiquetas</string>
+    <string name="settings_tags_manage_desc">Cambiarles el nombre o borrarlas (%1$d etiquetas)</string>
+    <string name="open_in_gallery">Abrir en la galería</string>
+    <string name="tags_manage_hint">Buscar o crear una etiqueta</string>
+    <string name="tags_create">Crear «%1$s»</string>
+    <string name="settings_tags_exported">Etiquetas guardadas: %1$d fotos.</string>
+    <string name="heal_engine_mix">Mezclar</string>
+    <string name="heal_engine_shuffle">Revolver</string>
+    <string name="wp_tag_filter_note">Filtro activo: el fondo solo usa fotos de tus fuentes que tengan todas estas etiquetas.</string>
+    <string name="wp_tag_filter_empty">Ninguna foto de tus carpetas tiene todas estas etiquetas. El fondo no cambiará hasta que quites alguna o añadas una carpeta.</string>
+    <string name="heal_hint_mix">Pinta sobre una unión para fundir sus colores · dos dedos para zoom</string>
+    <string name="heal_hint_shuffle">Pinta sobre un patrón repetido para romperlo, sin perder el grano · dos dedos para zoom</string>
+    <string name="wp_all_only_filter">Solo el filtro: %1$s · %2$d</string>
+    <string name="wp_all_outside_note">Las atenuadas no entran en el pase. Si tocas una, se pone de fondo hasta el siguiente cambio.</string>
+</resources>

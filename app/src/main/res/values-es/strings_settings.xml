@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_open">Ajustes</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_system">Del sistema</string>
+    <string name="settings_language_note">Por defecto, la app usa el idioma de tu móvil.</string>
+    <string name="settings_about">Acerca de</string>
+    <string name="settings_version">Versión</string>
+    <string name="settings_source_code">Código fuente</string>
+    <string name="settings_licenses">Licencias de código abierto</string>
+    <string name="settings_licenses_desc">Fuentes, modelo de IA y librerías</string>
+    <string name="action_close">Cerrar</string>
+
+    <string name="clock_font_lock">Bloqueo</string>
+    <string name="clock_font_light">Fina</string>
+    <string name="clock_font_thin">Ultrafina</string>
+    <string name="clock_font_regular">Normal</string>
+    <string name="clock_font_condensed">Condensada</string>
+    <string name="clock_font_serif">Clásica</string>
+    <string name="clock_font_mono">Digital</string>
+</resources>

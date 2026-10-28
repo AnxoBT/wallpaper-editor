@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Logo de Wallpaper Editor: una "W" geométrica cuyo pico central es una montaña bajo el sol,
+    enmarcada por marcas de recorte (la imagen se ajusta a la pantalla).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Marcas de recorte -->
+    <path
+        android:pathData="M27,38V27H38M70,27H81V38M81,70V81H70M38,81H27V70"
+        android:strokeAlpha="0.9"
+        android:strokeWidth="3.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- W / montaña -->
+    <path
+        android:pathData="M35,41L44,68L54,48L64,68L73,41"
+        android:strokeWidth="7.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="75"
+                android:endY="68"
+                android:startX="33"
+                android:startY="41"
+                android:type="linear">
+                <item
+                    android:color="#FFFF9A6C"
+                    android:offset="0" />
+                <item
+                    android:color="#FFFF5C8A"
+                    android:offset="0.5" />
+                <item
+                    android:color="#FF9B6BFF"
+                    android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sol -->
+    <path
+        android:fillColor="#FFFFD166"
+        android:pathData="M54,36.5m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+</vector>

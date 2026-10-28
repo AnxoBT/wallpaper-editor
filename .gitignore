@@ -1,0 +1,20 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/desktop/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# APKs generados
+*.apk
+
+# Ajustes locales del entorno de desarrollo (móvil de pruebas)
+tools/dev.local.sh
+
+# Recursos solo locales (fuentes de sistema copiadas del móvil, no redistribuibles)
+/app/src/local/

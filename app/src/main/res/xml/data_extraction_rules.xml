@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copia de seguridad (Android 12+): solo las preferencias que valen en cualquier móvil (ajustes del
+    pase de fondos y del reloj, y las etiquetas de las fotos, guardadas por nombre de archivo). Las carpetas y fotos elegidas, la carpeta de guardado y la posición
+    del selector usan permisos que solo valen en este móvil: no se copian.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="wallpaper_settings.xml" />
+        <include domain="sharedpref" path="photo_tags.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="wallpaper_settings.xml" />
+        <include domain="sharedpref" path="photo_tags.xml" />
+    </device-transfer>
+</data-extraction-rules>
