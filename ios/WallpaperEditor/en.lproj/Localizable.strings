@@ -1,0 +1,72 @@
+/* Textos en inglés (el español es el idioma base de la app de iPhone). */
+
+"Fondos" = "Wallpapers";
+"Atajos" = "Shortcuts";
+"Vale" = "OK";
+
+"Wallpaper Editor necesita ver tus fotos para usarlas como fondos." = "Wallpaper Editor needs to see your photos to use them as wallpapers.";
+"Abrir Ajustes" = "Open Settings";
+"%lld fotos" = "%lld photos";
+"Así queda en tu pantalla. Para ponerla de fondo, usa el atajo (pestaña Atajos)." = "This is how it looks on your screen. To set it as wallpaper, use the shortcut (Shortcuts tab).";
+"Anterior" = "Previous";
+"Siguiente" = "Next";
+"Todas las fotos" = "All photos";
+"Añadir todas las fotos" = "Add all photos";
+"Añadir un álbum" = "Add an album";
+"Añadir fotos sueltas" = "Add single photos";
+"De dónde salen" = "Where they come from";
+"Los álbumes se leen cada vez: las fotos nuevas entran solas." = "Albums are read every time: new photos are added automatically.";
+"Cómo cambian" = "How they change";
+"Orden" = "Order";
+"Al azar" = "Shuffle";
+"En orden" = "In order";
+"Ajuste" = "Fit";
+"Foto entera" = "Whole photo";
+"Llenar la pantalla" = "Fill the screen";
+"Foto entera: con la misma foto desenfocada detrás. Llenar la pantalla: recorta lo que sobra." = "Whole photo: over a blurred copy of itself. Fill the screen: crops what doesn't fit.";
+"Crear o actualizar el álbum «%@»" = "Create or update the “%@” album";
+"Álbum para Atajos (opcional)" = "Album for Shortcuts (optional)";
+"Solo hace falta para el atajo sencillo de la guía. Las fotos no se copian: el álbum solo las agrupa." = "Only needed for the simple shortcut in the guide. Photos are not copied: the album just groups them.";
+"Foto suelta" = "Single photo";
+"No hay álbumes con fotos." = "No albums with photos.";
+"Álbumes" = "Albums";
+"Cancelar" = "Cancel";
+"Álbum «%@» listo con %lld fotos." = "“%@” album ready with %lld photos.";
+
+"Wallpaper Editor no tiene permiso para ver tus fotos. Ábrela y permite el acceso." = "Wallpaper Editor can't see your photos. Open it and allow access.";
+"No hay fotos para los fondos. Abre Wallpaper Editor y elige un álbum o unas fotos." = "There are no photos for wallpapers. Open Wallpaper Editor and choose an album or some photos.";
+"No hay ningún fondo anterior." = "There is no previous wallpaper.";
+"No se pudo abrir la foto." = "The photo couldn't be opened.";
+"No se pudo crear el álbum." = "The album couldn't be created.";
+
+"Siguiente fondo" = "Next wallpaper";
+"Fondo anterior" = "Previous wallpaper";
+"Fondo al azar" = "Random wallpaper";
+"Da la siguiente foto de tus fondos, ya ajustada a la pantalla. Úsala con «Establecer foto como fondo»." = "Gives the next photo of your wallpapers, already fitted to the screen. Use it with “Set Wallpaper Photo”.";
+"Vuelve a la foto que tenías antes, ya ajustada a la pantalla. Úsala con «Establecer foto como fondo»." = "Goes back to the photo you had before, already fitted to the screen. Use it with “Set Wallpaper Photo”.";
+"Una foto cualquiera de tus fondos, ya ajustada a la pantalla. Úsala con «Establecer foto como fondo»." = "Any photo of your wallpapers, already fitted to the screen. Use it with “Set Wallpaper Photo”.";
+
+"En iPhone ninguna app puede cambiar el fondo por su cuenta. Un atajo sí: lo creas una vez y luego cambias de fondo con un toque en la parte de atrás del móvil, desde el escritorio o solo, por horario." = "On iPhone no app can change the wallpaper by itself. A shortcut can: create it once, then change wallpaper by tapping the back of the phone, from the home screen, or automatically on a schedule.";
+"Crea el atajo «Siguiente fondo»" = "Create the “Next wallpaper” shortcut";
+"Abre Atajos y toca +." = "Open Shortcuts and tap +.";
+"Añade la acción «Siguiente fondo» (búscala por «Wallpaper Editor»)." = "Add the “Next wallpaper” action (search for “Wallpaper Editor”).";
+"Añade debajo «Establecer foto como fondo». Toca la flecha y desactiva «Mostrar vista previa» y «Recortar al sujeto»." = "Below it add “Set Wallpaper Photo”. Tap the arrow and turn off “Show Preview” and “Crop to Subject”.";
+"Ponle de nombre «Siguiente fondo»." = "Name it “Next wallpaper”.";
+"Haz otro igual con «Fondo anterior» para poder volver atrás." = "Make another one with “Previous wallpaper” to be able to go back.";
+"Abrir Atajos" = "Open Shortcuts";
+"Doble y triple toque" = "Double and triple tap";
+"Ajustes › Accesibilidad › Tocar › Toque posterior." = "Settings › Accessibility › Touch › Back Tap.";
+"Doble toque: «Siguiente fondo»." = "Double Tap: “Next wallpaper”.";
+"Triple toque: «Fondo anterior»." = "Triple Tap: “Previous wallpaper”.";
+"Son toques en la parte de atrás del iPhone y funcionan en cualquier pantalla." = "These are taps on the back of the iPhone and work on any screen.";
+"Cambio automático" = "Automatic change";
+"Atajos › Automatización › Nueva automatización › Hora del día." = "Shortcuts › Automation › New Automation › Time of Day.";
+"Elige la hora y «Diariamente», marca «Ejecutar inmediatamente» y elige «Siguiente fondo»." = "Pick the time and “Daily”, choose “Run Immediately” and pick “Next wallpaper”.";
+"Repítelo con varias horas para que cambie más veces al día." = "Repeat it with several times so it changes more often each day.";
+"Botón en el escritorio" = "Home screen button";
+"Mantén pulsado el escritorio › Editar › Añadir widget › Atajos." = "Touch and hold the home screen › Edit › Add Widget › Shortcuts.";
+"Elige el widget y en él «Siguiente fondo»." = "Pick the widget and choose “Next wallpaper” in it.";
+"Si la acción de la app no aparece" = "If the app's action doesn't show up";
+"En Fondos, toca «Crear o actualizar el álbum»." = "In Wallpapers, tap “Create or update the album”.";
+"Haz el atajo con «Buscar fotos» (Álbum es «Wallpaper Editor»), «Obtener elemento de la lista» (Elemento aleatorio) y «Establecer foto como fondo»." = "Build the shortcut with “Find Photos” (Album is “Wallpaper Editor”), “Get Item from List” (Random Item) and “Set Wallpaper Photo”.";
+"Así salen al azar y sin el ajuste de la app." = "That way they come out at random and without the app's fitting.";

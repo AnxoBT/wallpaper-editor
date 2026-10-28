@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Lectura: se usa el Photo Picker del sistema (PickVisualMedia), que concede acceso
+        temporal a la imagen elegida sin pedir READ_MEDIA_IMAGES (Android 13+) ni
+        READ_MEDIA_VISUAL_USER_SELECTED (Android 14+).
+        Escritura: en Android 10+ MediaStore no requiere permisos para insertar imágenes
+        propias. Solo Android 8.0 - 9 (API 26-28) necesita WRITE_EXTERNAL_STORAGE.
+    -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
+
+    <!--
+        Selector de fotos propio (recuerda la última carpeta y la posición): lectura de fotos.
+        Si se deniega, se usa el Photo Picker del sistema, que no necesita permisos.
+    -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!-- Permiso normal (concedido al instalar) para "Establecer como fondo de pantalla". -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <application
+        android:allowBackup="true"
+        android:localeConfig="@xml/locales_config"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.WallpaperFit">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Fondo dinámico (pase de fotos con gestos). Solo trabaja al cambiar de foto. -->
+        <service
+            android:name=".wallpaper.SlideshowWallpaperService"
+            android:exported="true"
+            android:label="@string/wallpaper_service_name"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/slideshow_wallpaper" />
+        </service>
+
+        <!-- Widget de reloj para la pantalla de inicio. -->
+        <receiver
+            android:name=".wallpaper.ClockWidget"
+            android:exported="true"
+            android:label="@string/clock_widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/clock_widget_info" />
+        </receiver>
+
+        <!-- Habilita el backport del Photo Picker vía Google Play services en Android antiguos. -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false"
+            tools:ignore="MissingClass">
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+            </intent-filter>
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
+        </service>
+    </application>
+
+</manifest>

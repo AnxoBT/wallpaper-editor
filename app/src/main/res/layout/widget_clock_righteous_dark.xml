@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generado por gen_clock_layouts.py: widget de reloj, fuente RIGHTEOUS, sombra dark. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clock_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+    <!-- Fecha encima de la hora (como el reloj de bloqueo de vivo) o debajo: se muestra una u otra. -->
+    <TextClock
+        android:id="@+id/clock_date_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/righteous"
+        android:format12Hour="EEE, d MMM"
+        android:format24Hour="EEE, d MMM"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:shadowColor="#AA000000"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="10" />
+
+    <TextClock
+        android:id="@+id/clock_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/righteous"
+        android:format12Hour="h:mm"
+        android:format24Hour="HH:mm"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="#FFFFFFFF"
+        android:textSize="64sp"
+        android:shadowColor="#AA000000"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="10" />
+
+    <TextClock
+        android:id="@+id/clock_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/righteous"
+        android:format12Hour="EEEE, d MMMM"
+        android:format24Hour="EEEE, d MMMM"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
+        android:shadowColor="#AA000000"
+        android:shadowDx="0"
+        android:shadowDy="2"
+        android:shadowRadius="10" />
+</LinearLayout>

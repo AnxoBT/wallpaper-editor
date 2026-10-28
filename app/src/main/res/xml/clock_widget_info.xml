@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reloj de la pantalla de inicio. updatePeriodMillis = 0: la hora la actualiza el sistema. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/clock_widget_desc"
+    android:initialLayout="@layout/widget_clock_sans_light_dark"
+    android:minWidth="180dp"
+    android:minHeight="70dp"
+    android:minResizeWidth="60dp"
+    android:minResizeHeight="30dp"
+    android:maxResizeWidth="2000dp"
+    android:maxResizeHeight="2000dp"
+    android:previewLayout="@layout/widget_clock_sans_light_dark"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen|keyguard" />
