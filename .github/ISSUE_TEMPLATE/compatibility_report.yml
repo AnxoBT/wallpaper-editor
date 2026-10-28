@@ -1,0 +1,36 @@
+name: Compatibility report / Informe de compatibilidad
+description: Tell us how the app works on your phone / Cuéntanos cómo funciona en tu móvil
+labels: [compatibility]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The app has only been tested on one vivo phone so far; reports from other phones help a lot.
+        De momento solo se ha probado en un móvil vivo; los informes de otros móviles ayudan mucho.
+  - type: input
+    id: device
+    attributes:
+      label: Phone, Android version and system / Móvil, versión de Android y sistema
+      placeholder: "Xiaomi Redmi Note 13, Android 14, HyperOS 1.0"
+    validations:
+      required: true
+  - type: input
+    id: launcher
+    attributes:
+      label: Launcher / Escritorio
+  - type: checkboxes
+    id: works
+    attributes:
+      label: What works / Qué funciona
+      options:
+        - label: Editor and saving / Editor y guardar
+        - label: Live wallpaper changes / El fondo dinámico cambia
+        - label: Double and triple tap / Doble y triple toque
+        - label: Lock screen wallpaper / Fondo de bloqueo
+        - label: Clock widget / Widget de reloj
+        - label: Keeps working after a day (battery savers) / Sigue funcionando al día siguiente (ahorro de batería)
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / Notas
+      description: Anything that doesn't work or looks different / Lo que no funcione o se vea distinto

@@ -1,0 +1,86 @@
+# Versión de iPhone: compila, pasa las pruebas, saca capturas en el simulador y genera el IPA
+# (sin firmar: hay que firmarlo al instalarlo, por ejemplo con Sideloadly o AltStore).
+name: iOS
+
+on:
+  workflow_dispatch:
+  push:
+    # Solo ramas: al mover la etiqueta v1.0 no se vuelve a compilar.
+    branches: ["**"]
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+
+jobs:
+  build:
+    # Mac con chip Intel: en los de chip Apple GitHub a veces no tiene sitio y el trabajo no arranca.
+    runs-on: macos-15-intel
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generar el proyecto de Xcode
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          xcodebuild -version
+
+      - name: Elegir un iPhone del simulador
+        run: |
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          devices = json.load(sys.stdin)["devices"]
+          phones = [d for runtime, ds in sorted(devices.items(), reverse=True) if "iOS" in runtime for d in ds if d["name"].startswith("iPhone") and "Pro" in d["name"] and "Max" not in d["name"]]
+          phones = phones or [d for runtime, ds in sorted(devices.items(), reverse=True) if "iOS" in runtime for d in ds if d["name"].startswith("iPhone")]
+          print(phones[0]["udid"])
+          ')
+          echo "UDID=$UDID" >> "$GITHUB_ENV"
+          xcrun simctl list devices | grep "$UDID"
+
+      - name: Compilar para el simulador
+        run: |
+          set -o pipefail
+          xcodebuild build-for-testing -project WallpaperEditor.xcodeproj -scheme WallpaperEditor             -destination "platform=iOS Simulator,id=$UDID" -derivedDataPath build/sim             CODE_SIGNING_ALLOWED=NO | tail -20
+
+      - name: Pruebas
+        run: |
+          set -o pipefail
+          xcodebuild test-without-building -project WallpaperEditor.xcodeproj -scheme WallpaperEditor             -destination "platform=iOS Simulator,id=$UDID" -derivedDataPath build/sim             -only-testing:WallpaperEditorTests | tail -30
+
+      - name: Capturas en el simulador
+        run: |
+          set -o pipefail
+          python3 ci/sample_photos.py build/photos
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl status_bar "$UDID" override --time 9:41 --batteryLevel 100 --batteryState charged || true
+          xcrun simctl addmedia "$UDID" build/photos/*.png
+          mkdir -p build/shots
+          for lang in es en; do
+            # Cada vez desde cero, para que vuelva a pedir el permiso de Fotos.
+            xcrun simctl uninstall "$UDID" com.wallpaperfit.app || true
+            TEST_RUNNER_SHOT_LANG=$lang TEST_RUNNER_SHOT_DIR="$PWD/build/shots"               xcodebuild test-without-building -project WallpaperEditor.xcodeproj -scheme WallpaperEditor               -destination "platform=iOS Simulator,id=$UDID" -derivedDataPath build/sim               -only-testing:WallpaperEditorUITests | tail -15
+          done
+          ls -l build/shots
+
+      - name: IPA sin firmar
+        run: |
+          set -o pipefail
+          xcodebuild build -project WallpaperEditor.xcodeproj -scheme WallpaperEditor -configuration Release \
+            -sdk iphoneos -destination "generic/platform=iOS" -derivedDataPath build/device \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | tail -20
+          mkdir -p build/ipa/Payload
+          cp -R build/device/Build/Products/Release-iphoneos/WallpaperEditor.app build/ipa/Payload/
+          (cd build/ipa && zip -qry ../WallpaperEditor-1.0-iOS.ipa Payload)
+          ls -l build/WallpaperEditor-1.0-iOS.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WallpaperEditor-iOS
+          path: |
+            ios/build/WallpaperEditor-1.0-iOS.ipa
+            ios/build/shots/*.png
+          if-no-files-found: error

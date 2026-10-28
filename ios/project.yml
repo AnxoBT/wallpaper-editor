@@ -1,0 +1,66 @@
+# Proyecto de Xcode para iPhone. Se genera con XcodeGen (`xcodegen generate` en esta carpeta);
+# el .xcodeproj no se guarda en el repositorio.
+name: WallpaperEditor
+options:
+  bundleIdPrefix: com.wallpaperfit
+  developmentLanguage: es
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+targets:
+  WallpaperEditor:
+    type: application
+    platform: iOS
+    sources:
+      - path: WallpaperEditor
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wallpaperfit.app
+        PRODUCT_NAME: WallpaperEditor
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Wallpaper Editor
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Para usar tus fotos como fondos y preparar el álbum de los Atajos."
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Para crear el álbum «Wallpaper Editor» con tus fondos."
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  WallpaperEditorTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: WallpaperEditorTests
+    dependencies:
+      - target: WallpaperEditor
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.wallpaperfit.app.tests
+  WallpaperEditorUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: WallpaperEditorUITests
+    dependencies:
+      - target: WallpaperEditor
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.wallpaperfit.app.uitests
+schemes:
+  WallpaperEditor:
+    build:
+      targets:
+        WallpaperEditor: all
+        WallpaperEditorTests: [test]
+        WallpaperEditorUITests: [test]
+    test:
+      targets:
+        - WallpaperEditorTests
+        - WallpaperEditorUITests
