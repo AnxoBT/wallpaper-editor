@@ -41,7 +41,7 @@ TEMPLATE = '''<?xml version="1.0" encoding="utf-8"?>
     <!-- Fecha encima de la hora (como el reloj de bloqueo de vivo) o debajo: se muestra una u otra. -->
     <TextClock
         android:id="@+id/clock_date_top"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="{date_family}"
         android:format12Hour="EEE, d MMM"
@@ -55,7 +55,7 @@ TEMPLATE = '''<?xml version="1.0" encoding="utf-8"?>
 
     <TextClock
         android:id="@+id/clock_time"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="{family}"{variation}
         android:format12Hour="h:mm"
@@ -68,7 +68,7 @@ TEMPLATE = '''<?xml version="1.0" encoding="utf-8"?>
 
     <TextClock
         android:id="@+id/clock_date"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="{date_family}"
         android:format12Hour="EEEE, d MMMM"

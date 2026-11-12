@@ -14,6 +14,7 @@
     <plurals name="wp_misaligned_found">
         <item quantity="one">%1$d foto tiene otra forma que tu pantalla: se recortará o quedarán bandas. Tócala para arreglarla en el editor.</item>
         <item quantity="other">%1$d fotos tienen otra forma que tu pantalla: se recortarán o quedarán bandas. Toca una para arreglarla en el editor.</item>
+        <item quantity="many">%1$d fotos tienen otra forma que tu pantalla: se recortarán o quedarán bandas. Toca una para arreglarla en el editor.</item>
     </plurals>
 
     <string name="redo_stroke">Rehacer trazo</string>
@@ -61,6 +62,7 @@
     <plurals name="tags_results">
         <item quantity="one">%d foto</item>
         <item quantity="other">%d fotos</item>
+        <item quantity="many">%d fotos</item>
     </plurals>
 
     <string name="tag_favorites">favoritas</string>
@@ -91,6 +93,7 @@
     <plurals name="tags_copy_folder">
         <item quantity="one">Copiar su foto a %2$s</item>
         <item quantity="other">Copiar sus %1$d fotos a %2$s</item>
+        <item quantity="many">Copiar sus %1$d fotos a %2$s</item>
     </plurals>
     <string name="tags_copy_done">Copiadas: %1$d · ya estaban: %2$d · fallos: %3$d</string>
     <string name="wp_duplicates_open">Buscar fotos repetidas</string>
@@ -100,6 +103,7 @@
     <plurals name="wp_duplicates_found">
         <item quantity="one">%d foto está repetida. «Original» marca la que conviene guardar: la más grande o, si son iguales, la más antigua.</item>
         <item quantity="other">%d fotos están repetidas. «Original» marca la que conviene guardar: la más grande o, si son iguales, la más antigua.</item>
+        <item quantity="many">%d fotos están repetidas. «Original» marca la que conviene guardar: la más grande o, si son iguales, la más antigua.</item>
     </plurals>
     <string name="wp_dup_original">Original</string>
     <string name="wp_dup_copy">Repetida</string>

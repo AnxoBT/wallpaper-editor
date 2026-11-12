@@ -91,6 +91,13 @@ class ClockWidget : AppWidgetProvider() {
             ClockColorMode.FIXED -> clock.fixedColor
         }
 
+        /** Color de la sombra de una variante (null = sin sombra). */
+        fun shadowColor(variant: ShadowVariant): Int? = when (variant) {
+            ShadowVariant.NONE -> null
+            ShadowVariant.DARK -> 0xAA000000.toInt()
+            ShadowVariant.LIGHT -> 0xAAFFFFFF.toInt()
+        }
+
         /** Sombra oscura bajo texto claro y clara bajo texto oscuro. */
         fun shadowVariant(clock: ClockConfig, color: Int): ShadowVariant = when {
             clock.shadow == ClockShadow.NONE -> ShadowVariant.NONE
@@ -140,10 +147,9 @@ class ClockWidget : AppWidgetProvider() {
                 ClockAlign.CENTER -> Gravity.CENTER
                 ClockAlign.RIGHT -> Gravity.END or Gravity.CENTER_VERTICAL
             }
+            // Los textos miden lo que su contenido y los coloca el contenedor: el gravity de un
+            // TextView no se puede cambiar en un widget hasta Android 12 ("Problem loading widget").
             views.setInt(R.id.clock_root, "setGravity", gravity)
-            views.setInt(R.id.clock_time, "setGravity", gravity)
-            views.setInt(R.id.clock_date, "setGravity", gravity)
-            views.setInt(R.id.clock_date_top, "setGravity", gravity)
 
             views.setOnClickPendingIntent(R.id.clock_root, openSettings(context))
             return views

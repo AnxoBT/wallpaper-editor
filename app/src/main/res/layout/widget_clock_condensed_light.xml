@@ -11,7 +11,7 @@
     <!-- Fecha encima de la hora (como el reloj de bloqueo de vivo) o debajo: se muestra una u otra. -->
     <TextClock
         android:id="@+id/clock_date_top"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:format12Hour="EEE, d MMM"
@@ -29,7 +29,7 @@
 
     <TextClock
         android:id="@+id/clock_time"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:format12Hour="h:mm"
@@ -46,7 +46,7 @@
 
     <TextClock
         android:id="@+id/clock_date"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:format12Hour="EEEE, d MMMM"

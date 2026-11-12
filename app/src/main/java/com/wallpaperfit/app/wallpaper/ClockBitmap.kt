@@ -7,9 +7,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.TypedValue
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import kotlin.math.max
 
 /**
@@ -29,9 +27,7 @@ object ClockBitmap {
         val metrics = context.resources.displayMetrics
         val bitmap = Bitmap.createBitmap(max(1, widthPx), max(1, heightPx), Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        val now = Date()
-        val time = SimpleDateFormat(clock.timePattern, Locale.getDefault()).format(now)
-        val date = SimpleDateFormat(clock.dateFormat.pattern, Locale.getDefault()).format(now)
+        val (time, date) = clock.format(Date())
 
         val timePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             typeface = typeface(context, clock.font)
@@ -40,15 +36,11 @@ object ClockBitmap {
         }
         val datePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             // Como en el reloj de bloqueo de vivo, la fecha va en la fuente del sistema.
-            typeface = if (clock.font == ClockFont.VIVO_SERIF) Typeface.DEFAULT else timePaint.typeface
+            typeface = if (clock.font.dateUsesSystemFont) Typeface.DEFAULT else timePaint.typeface
             textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, clock.dateSize, metrics)
             this.color = color
         }
-        val shadow = when (ClockWidget.shadowVariant(clock, color)) {
-            ShadowVariant.NONE -> null
-            ShadowVariant.DARK -> 0xAA000000.toInt()
-            ShadowVariant.LIGHT -> 0xAAFFFFFF.toInt()
-        }
+        val shadow = ClockWidget.shadowColor(ClockWidget.shadowVariant(clock, color))
         if (shadow != null) {
             val radius = 4f * metrics.density
             timePaint.setShadowLayer(radius, 0f, 2f * metrics.density, shadow)

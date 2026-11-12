@@ -6,23 +6,33 @@ import org.junit.Test
 
 class UpdateCheckerTest {
 
-    private val installedAt = 1_000_000L
-
     @Test
-    fun newerApkUploadedLaterIsAnUpdate() {
-        assertTrue(UpdateChecker.isNewer(assetSize = 62_300_000, assetTime = installedAt + 1, installedSize = 62_200_000, installedAt = installedAt))
+    fun higherVersionIsAnUpdate() {
+        assertTrue(UpdateChecker.isNewer("v1.0.1", "1.0.0"))
+        assertTrue(UpdateChecker.isNewer("v1.1.0", "1.0.9"))
+        assertTrue(UpdateChecker.isNewer("v2.0.0", "1.12.3"))
+        // Versiones de distinta longitud: 1.0 = 1.0.0.
+        assertTrue(UpdateChecker.isNewer("v1.0.1", "1.0"))
     }
 
     @Test
-    fun theSameApkIsNot() {
-        // La misma versión: mismo tamaño, aunque se subiera después de instalarla.
-        assertFalse(UpdateChecker.isNewer(assetSize = 62_200_000, assetTime = installedAt + 1, installedSize = 62_200_000, installedAt = installedAt))
+    fun sameOrOlderVersionIsNot() {
+        assertFalse(UpdateChecker.isNewer("v1.0.0", "1.0.0"))
+        assertFalse(UpdateChecker.isNewer("v1.0", "1.0.0"))
+        assertFalse(UpdateChecker.isNewer("v1.0.0", "1.0.1"))
+        // Números, no texto: 1.10 es mayor que 1.9.
+        assertFalse(UpdateChecker.isNewer("v1.9.0", "1.10.0"))
     }
 
     @Test
-    fun anOlderApkIsNot() {
-        // Instalada a mano una versión más reciente que la publicada.
-        assertFalse(UpdateChecker.isNewer(assetSize = 62_300_000, assetTime = installedAt - 1, installedSize = 62_200_000, installedAt = installedAt))
-        assertFalse(UpdateChecker.isNewer(assetSize = 0, assetTime = installedAt + 1, installedSize = 62_200_000, installedAt = installedAt))
+    fun unreadableVersionsAreNotUpdates() {
+        assertFalse(UpdateChecker.isNewer("", "1.0.0"))
+        assertFalse(UpdateChecker.isNewer("latest", "1.0.0"))
+        assertFalse(UpdateChecker.isNewer("v1.1.0", ""))
+    }
+
+    @Test
+    fun suffixesAreIgnored() {
+        assertTrue(UpdateChecker.isNewer("v1.1.0-beta", "1.0.0"))
     }
 }

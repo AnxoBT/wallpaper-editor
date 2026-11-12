@@ -14,6 +14,7 @@
     <plurals name="hub_wallpapers_active">
         <item quantity="one">Activo · %d fuente</item>
         <item quantity="other">Activo · %d fuentes</item>
+        <item quantity="many">Activo · %d fuentes</item>
     </plurals>
     <string name="action_back">Atrás</string>
 
@@ -44,6 +45,7 @@
     <plurals name="wp_new_photos">
         <item quantity="one">%1$d foto nueva</item>
         <item quantity="other">%1$d fotos nuevas</item>
+        <item quantity="many">%1$d fotos nuevas</item>
     </plurals>
     <string name="wp_section_photos">Tus fotos (%1$d)</string>
     <string name="wp_add_folder">Carpeta</string>

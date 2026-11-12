@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import com.wallpaperfit.app.model.ToolGroup
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -440,253 +441,258 @@ private fun EditorScreen(
     // La pestaña de herramientas se recuerda aquí: la barra desaparece mientras hay una herramienta abierta.
     var toolGroup by rememberSaveable { mutableStateOf(ToolGroup.COMPOSE) }
     var widgetPreview by remember { mutableStateOf(false) }
-    state.preview?.let { preview -> if (widgetPreview) PhoneWidgetPreview(preview, state.sourceUri?.toString()) { widgetPreview = false } }
 
-    Scaffold(
-        containerColor = CanvasBackground,
-        contentColor = MaterialTheme.colorScheme.onBackground,
-        topBar = {
-            EditorTopBar(
-                activeTool = tool,
-                canUndo = state.canUndo,
-                canRedo = state.canRedo,
-                onOpenImage = onOpenImage,
-                onUndo = viewModel::undo,
-                onRedo = viewModel::redo,
-                onHistory = { viewModel.showHistorySheet(true) },
-                onCompare = viewModel::setShowOriginal,
-                onExport = { viewModel.showExportSheet(true) },
-                exportEnabled = !state.isProcessing,
-                onWidgetPreview = if (PlatformFeatures.WIDGET_PREVIEW && state.preview != null) {
-                    { widgetPreview = true }
-                } else {
-                    null
-                },
-            )
-        },
-        bottomBar = {
+    Box(Modifier.fillMaxSize()) {
+        Scaffold(
+            // Con la vista previa encima, el editor de debajo no se lee ni se enfoca (TalkBack, teclado).
+            modifier = if (widgetPreview) Modifier.clearAndSetSemantics { } else Modifier,
+            containerColor = CanvasBackground,
+            contentColor = MaterialTheme.colorScheme.onBackground,
+            topBar = {
+                EditorTopBar(
+                    activeTool = tool,
+                    canUndo = state.canUndo,
+                    canRedo = state.canRedo,
+                    onOpenImage = onOpenImage,
+                    onUndo = viewModel::undo,
+                    onRedo = viewModel::redo,
+                    onHistory = { viewModel.showHistorySheet(true) },
+                    onCompare = viewModel::setShowOriginal,
+                    onExport = { viewModel.showExportSheet(true) },
+                    exportEnabled = !state.isProcessing,
+                    onWidgetPreview = if (PlatformFeatures.WIDGET_PREVIEW && state.preview != null) {
+                        { widgetPreview = true }
+                    } else {
+                        null
+                    },
+                )
+            },
+            bottomBar = {
+                when (tool) {
+                    null -> ToolBar(group = toolGroup, onGroupSelected = { toolGroup = it }, onToolSelected = viewModel::openTool)
+                    Tool.CROP -> CropPanel(
+                        aspect = state.cropAspect,
+                        onAspectSelected = viewModel::selectCropAspect,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.EXPAND -> ExpandPanel(
+                        fill = state.working.content.expansion.fill,
+                        detail = state.working.content.expansion.detail,
+                        targetSize = state.working.fit.size,
+                        onFillSelected = viewModel::onExpandFillSelected,
+                        onDetailSelected = viewModel::onExpandDetailSelected,
+                        onFitToScreen = viewModel::fitExpansionToScreen,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.LAYERS -> LayersPanel(
+                        layers = state.working.layers,
+                        selected = state.selectedLayer,
+                        onSelect = viewModel::selectLayer,
+                        onAdd = onAddLayer,
+                        onOpacity = viewModel::setLayerOpacity,
+                        onAction = viewModel::layerAction,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.HEAL -> HealPanel(
+                        brushSize = state.brushSize,
+                        shape = state.healShape,
+                        engine = state.healEngine,
+                        canUndoStroke = state.working.content.heals.size > state.committed.content.heals.size,
+                        isProcessing = state.isProcessing,
+                        isDetectingText = state.isDetectingText,
+                        onBrushSizeChange = viewModel::setBrushSize,
+                        onShapeChange = viewModel::setHealShape,
+                        onEngineChange = viewModel::setHealEngine,
+                        onDetectText = viewModel::detectText,
+                        onUndoStroke = viewModel::undoHealStroke,
+                        canRedoStroke = state.healRedo.isNotEmpty(),
+                        onRedoStroke = viewModel::redoHealStroke,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.FIT -> FitPanel(
+                        widthText = state.widthText,
+                        heightText = state.heightText,
+                        isValid = state.isResolutionValid,
+                        selectedPreset = state.selectedPreset,
+                        deviceSize = state.deviceSize,
+                        isDeviceSize = state.isDeviceSize,
+                        fill = state.working.fit.fill,
+                        onWidthChange = viewModel::onWidthChange,
+                        onHeightChange = viewModel::onHeightChange,
+                        onDeviceSelected = viewModel::selectDeviceSize,
+                        onPresetSelected = viewModel::selectPreset,
+                        onFillSelected = viewModel::onFrameFillSelected,
+                        onFit = viewModel::frameFit,
+                        onFill = viewModel::frameFill,
+                        onRotate = viewModel::frameRotate90,
+                        onFlip = viewModel::frameFlip,
+                        onAlign = viewModel::alignFrame,
+                        magnet = state.frameMagnet,
+                        onMagnetChange = viewModel::setFrameMagnet,
+                        onNudge = viewModel::nudgeFrame,
+                        scalePercent = state.working.fit.transform.scale * 100f,
+                        rotationDegrees = state.working.fit.transform.rotation,
+                        onZoomStep = viewModel::zoomFrameStep,
+                        onRotationStep = viewModel::rotateFrameStep,
+                        shiftPx = state.working.fit.let { fit ->
+                            Math.round(fit.transform.offsetX * fit.size.width) to Math.round(fit.transform.offsetY * fit.size.height)
+                        },
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.FILTERS -> FilterPanel(
+                        filter = state.working.filter,
+                        thumbnails = state.filterThumbnails,
+                        onSelect = viewModel::selectFilter,
+                        onIntensityChange = viewModel::setFilterIntensity,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.CURVES -> CurvesPanel(
+                        channel = state.curveChannel,
+                        onChannelSelected = viewModel::selectCurveChannel,
+                        onPreset = viewModel::applyCurvePreset,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    Tool.BRUSH -> BrushPanel(
+                        effect = state.brushEffect,
+                        value = state.brushValue,
+                        brushSize = state.brushSize,
+                        canUndoStroke = state.working.brush.size > state.committed.brush.size,
+                        onEffectSelected = viewModel::selectBrushEffect,
+                        onValueChange = viewModel::setBrushValue,
+                        onBrushSizeChange = viewModel::setBrushSize,
+                        onUndoStroke = viewModel::undoBrushStroke,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                    )
+                    else -> AdjustPanel(
+                        tool = tool,
+                        params = params,
+                        selected = state.selectedParam,
+                        adjustments = state.working.adjustments,
+                        onSelect = viewModel::selectParam,
+                        onValueChange = viewModel::setParamValue,
+                        onCancel = viewModel::cancelTool,
+                        onReset = viewModel::resetTool,
+                        onApply = viewModel::applyTool,
+                        hint = stringResource(if (tool == Tool.LENS_BLUR) R.string.lens_hint else R.string.gesture_hint),
+                        extra = {
+                            if (tool == Tool.LENS_BLUR) LensShapeSelector(state.working.lens.shape, viewModel::setLensShape)
+                        },
+                    )
+                }
+            },
+            snackbarHost = { DismissibleSnackbarHost(snackbarHostState) },
+        ) { padding ->
             when (tool) {
-                null -> ToolBar(group = toolGroup, onGroupSelected = { toolGroup = it }, onToolSelected = viewModel::openTool)
-                Tool.CROP -> CropPanel(
-                    aspect = state.cropAspect,
-                    onAspectSelected = viewModel::selectCropAspect,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                Tool.CROP -> CropStage(
+                    image = state.originalPreview,
+                    crop = state.working.content.crop,
+                    croppedWidth = state.croppedWidth,
+                    croppedHeight = state.croppedHeight,
+                    onDrag = viewModel::onCropDrag,
+                    modifier = Modifier.padding(padding),
                 )
-                Tool.EXPAND -> ExpandPanel(
-                    fill = state.working.content.expansion.fill,
-                    detail = state.working.content.expansion.detail,
+                Tool.EXPAND -> ExpandStage(
+                    originalPreview = state.originalPreview,
+                    crop = state.working.content.crop,
+                    originalWidth = state.croppedWidth,
+                    originalHeight = state.croppedHeight,
+                    expansion = state.working.content.expansion,
+                    draft = state.expandDraft,
+                    isLoading = state.isExpandDraftLoading,
+                    onDrag = viewModel::onExpandDrag,
+                    modifier = Modifier.padding(padding),
+                )
+                Tool.FIT -> FrameStage(
+                    image = state.baseView,
+                    preview = state.preview,
+                    fit = state.working.fit,
+                    onGesture = { g ->
+                        viewModel.onFrameGesture(
+                            g.centroid.x, g.centroid.y, g.pan.x, g.pan.y, g.zoom, g.rotation,
+                            g.frameSize.width, g.frameSize.height, g.snapDistance,
+                        )
+                    },
+                    onGestureEnd = viewModel::onFrameGestureEnd,
+                    onDoubleTap = viewModel::frameFill,
+                    modifier = Modifier.padding(padding),
+                )
+                Tool.LAYERS -> LayerStage(
+                    preview = state.preview,
                     targetSize = state.working.fit.size,
-                    onFillSelected = viewModel::onExpandFillSelected,
-                    onDetailSelected = viewModel::onExpandDetailSelected,
-                    onFitToScreen = viewModel::fitExpansionToScreen,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
-                )
-                Tool.LAYERS -> LayersPanel(
                     layers = state.working.layers,
                     selected = state.selectedLayer,
                     onSelect = viewModel::selectLayer,
-                    onAdd = onAddLayer,
-                    onOpacity = viewModel::setLayerOpacity,
-                    onAction = viewModel::layerAction,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                    onGesture = viewModel::onLayerGesture,
+                    modifier = Modifier.padding(padding),
                 )
-                Tool.HEAL -> HealPanel(
-                    brushSize = state.brushSize,
+                Tool.HEAL -> HealStage(
+                    baseView = state.baseView,
+                    geometry = state.baseGeometry,
+                    brushSizeDp = state.brushSize,
                     shape = state.healShape,
-                    engine = state.healEngine,
-                    canUndoStroke = state.working.content.heals.size > state.committed.content.heals.size,
                     isProcessing = state.isProcessing,
-                    isDetectingText = state.isDetectingText,
-                    onBrushSizeChange = viewModel::setBrushSize,
-                    onShapeChange = viewModel::setHealShape,
-                    onEngineChange = viewModel::setHealEngine,
-                    onDetectText = viewModel::detectText,
-                    onUndoStroke = viewModel::undoHealStroke,
-                    canRedoStroke = state.healRedo.isNotEmpty(),
-                    onRedoStroke = viewModel::redoHealStroke,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                    onStroke = viewModel::addHealStroke,
+                    modifier = Modifier.padding(padding),
                 )
-                Tool.FIT -> FitPanel(
-                    widthText = state.widthText,
-                    heightText = state.heightText,
-                    isValid = state.isResolutionValid,
-                    selectedPreset = state.selectedPreset,
-                    deviceSize = state.deviceSize,
-                    isDeviceSize = state.isDeviceSize,
-                    fill = state.working.fit.fill,
-                    onWidthChange = viewModel::onWidthChange,
-                    onHeightChange = viewModel::onHeightChange,
-                    onDeviceSelected = viewModel::selectDeviceSize,
-                    onPresetSelected = viewModel::selectPreset,
-                    onFillSelected = viewModel::onFrameFillSelected,
-                    onFit = viewModel::frameFit,
-                    onFill = viewModel::frameFill,
-                    onRotate = viewModel::frameRotate90,
-                    onFlip = viewModel::frameFlip,
-                    onAlign = viewModel::alignFrame,
-                    magnet = state.frameMagnet,
-                    onMagnetChange = viewModel::setFrameMagnet,
-                    onNudge = viewModel::nudgeFrame,
-                    scalePercent = state.working.fit.transform.scale * 100f,
-                    rotationDegrees = state.working.fit.transform.rotation,
-                    onZoomStep = viewModel::zoomFrameStep,
-                    onRotationStep = viewModel::rotateFrameStep,
-                    shiftPx = state.working.fit.let { fit ->
-                        Math.round(fit.transform.offsetX * fit.size.width) to Math.round(fit.transform.offsetY * fit.size.height)
-                    },
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                Tool.BRUSH -> HealStage(
+                    baseView = state.baseView,
+                    geometry = state.baseGeometry,
+                    brushSizeDp = state.brushSize,
+                    shape = HealShape.STROKE,
+                    isProcessing = false,
+                    onStroke = viewModel::addBrushStroke,
+                    strokeColor = if (state.brushValue >= 0f) BrushPositive else BrushNegative,
+                    modifier = Modifier.padding(padding),
                 )
-                Tool.FILTERS -> FilterPanel(
-                    filter = state.working.filter,
-                    thumbnails = state.filterThumbnails,
-                    onSelect = viewModel::selectFilter,
-                    onIntensityChange = viewModel::setFilterIntensity,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
-                )
-                Tool.CURVES -> CurvesPanel(
+                Tool.CURVES -> CurvesStage(
+                    preview = state.preview,
+                    targetSize = state.working.fit.size,
+                    curves = state.working.curves,
                     channel = state.curveChannel,
-                    onChannelSelected = viewModel::selectCurveChannel,
-                    onPreset = viewModel::applyCurvePreset,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                    onCurveChange = viewModel::setCurve,
+                    modifier = Modifier.padding(padding),
                 )
-                Tool.BRUSH -> BrushPanel(
-                    effect = state.brushEffect,
-                    value = state.brushValue,
-                    brushSize = state.brushSize,
-                    canUndoStroke = state.working.brush.size > state.committed.brush.size,
-                    onEffectSelected = viewModel::selectBrushEffect,
-                    onValueChange = viewModel::setBrushValue,
-                    onBrushSizeChange = viewModel::setBrushSize,
-                    onUndoStroke = viewModel::undoBrushStroke,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
+                Tool.LENS_BLUR -> LensStage(
+                    preview = state.preview,
+                    targetSize = state.working.fit.size,
+                    lens = state.working.lens,
+                    transition = state.working.adjustments[AdjustParam.LENS_TRANSITION] / 100f,
+                    onGesture = viewModel::onLensGesture,
+                    modifier = Modifier.padding(padding),
                 )
-                else -> AdjustPanel(
-                    tool = tool,
+                else -> ImageStage(
+                    preview = state.preview,
+                    targetSize = state.working.fit.size,
+                    activeTool = tool,
                     params = params,
-                    selected = state.selectedParam,
+                    selectedParam = state.selectedParam,
                     adjustments = state.working.adjustments,
-                    onSelect = viewModel::selectParam,
-                    onValueChange = viewModel::setParamValue,
-                    onCancel = viewModel::cancelTool,
-                    onReset = viewModel::resetTool,
-                    onApply = viewModel::applyTool,
-                    hint = stringResource(if (tool == Tool.LENS_BLUR) R.string.lens_hint else R.string.gesture_hint),
-                    extra = {
-                        if (tool == Tool.LENS_BLUR) LensShapeSelector(state.working.lens.shape, viewModel::setLensShape)
-                    },
+                    showOriginal = state.showOriginal,
+                    isProcessing = state.isProcessing,
+                    onSelectParam = viewModel::selectParam,
+                    onAdjustBy = viewModel::adjustSelectedBy,
+                    modifier = Modifier.padding(padding),
                 )
             }
-        },
-        snackbarHost = { DismissibleSnackbarHost(snackbarHostState) },
-    ) { padding ->
-        when (tool) {
-            Tool.CROP -> CropStage(
-                image = state.originalPreview,
-                crop = state.working.content.crop,
-                croppedWidth = state.croppedWidth,
-                croppedHeight = state.croppedHeight,
-                onDrag = viewModel::onCropDrag,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.EXPAND -> ExpandStage(
-                originalPreview = state.originalPreview,
-                crop = state.working.content.crop,
-                originalWidth = state.croppedWidth,
-                originalHeight = state.croppedHeight,
-                expansion = state.working.content.expansion,
-                draft = state.expandDraft,
-                isLoading = state.isExpandDraftLoading,
-                onDrag = viewModel::onExpandDrag,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.FIT -> FrameStage(
-                image = state.baseView,
-                preview = state.preview,
-                fit = state.working.fit,
-                onGesture = { g ->
-                    viewModel.onFrameGesture(
-                        g.centroid.x, g.centroid.y, g.pan.x, g.pan.y, g.zoom, g.rotation,
-                        g.frameSize.width, g.frameSize.height, g.snapDistance,
-                    )
-                },
-                onGestureEnd = viewModel::onFrameGestureEnd,
-                onDoubleTap = viewModel::frameFill,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.LAYERS -> LayerStage(
-                preview = state.preview,
-                targetSize = state.working.fit.size,
-                layers = state.working.layers,
-                selected = state.selectedLayer,
-                onSelect = viewModel::selectLayer,
-                onGesture = viewModel::onLayerGesture,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.HEAL -> HealStage(
-                baseView = state.baseView,
-                geometry = state.baseGeometry,
-                brushSizeDp = state.brushSize,
-                shape = state.healShape,
-                isProcessing = state.isProcessing,
-                onStroke = viewModel::addHealStroke,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.BRUSH -> HealStage(
-                baseView = state.baseView,
-                geometry = state.baseGeometry,
-                brushSizeDp = state.brushSize,
-                shape = HealShape.STROKE,
-                isProcessing = false,
-                onStroke = viewModel::addBrushStroke,
-                strokeColor = if (state.brushValue >= 0f) BrushPositive else BrushNegative,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.CURVES -> CurvesStage(
-                preview = state.preview,
-                targetSize = state.working.fit.size,
-                curves = state.working.curves,
-                channel = state.curveChannel,
-                onCurveChange = viewModel::setCurve,
-                modifier = Modifier.padding(padding),
-            )
-            Tool.LENS_BLUR -> LensStage(
-                preview = state.preview,
-                targetSize = state.working.fit.size,
-                lens = state.working.lens,
-                transition = state.working.adjustments[AdjustParam.LENS_TRANSITION] / 100f,
-                onGesture = viewModel::onLensGesture,
-                modifier = Modifier.padding(padding),
-            )
-            else -> ImageStage(
-                preview = state.preview,
-                targetSize = state.working.fit.size,
-                activeTool = tool,
-                params = params,
-                selectedParam = state.selectedParam,
-                adjustments = state.working.adjustments,
-                showOriginal = state.showOriginal,
-                isProcessing = state.isProcessing,
-                onSelectParam = viewModel::selectParam,
-                onAdjustBy = viewModel::adjustSelectedBy,
-                modifier = Modifier.padding(padding),
-            )
         }
+        // Encima de todo (también de las barras del sistema): la foto con el reloj, como quedará.
+        if (widgetPreview) state.preview?.let { PhoneWidgetPreview(it, state.sourceUri?.toString()) { widgetPreview = false } }
     }
 
     if (state.showHistorySheet) {

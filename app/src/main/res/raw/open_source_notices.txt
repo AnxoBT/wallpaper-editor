@@ -1,5 +1,7 @@
 Wallpaper Editor
 https://github.com/AnxoBT/wallpaper-editor
+Copyright (c) 2026 AnxoBT. Licensed under the GNU General Public License v3.0
+https://www.gnu.org/licenses/gpl-3.0.html
 
 MI-GAN (https://github.com/Picsart-AI-Research/MI-GAN)
 

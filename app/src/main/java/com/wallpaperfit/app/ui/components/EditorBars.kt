@@ -7,6 +7,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,9 +28,11 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Compare
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.RestartAlt
+import androidx.compose.material.icons.outlined.SaveAlt
 import androidx.compose.material.icons.outlined.Smartphone
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -74,43 +77,53 @@ fun EditorTopBar(
     /** Ver la foto con los widgets del móvil (null: no se ofrece). */
     onWidgetPreview: (() -> Unit)? = null,
 ) {
-    TopAppBar(
-        title = {
-            if (activeTool != null) Text(stringResource(activeTool.label))
-        },
-        navigationIcon = {
-            if (activeTool == null) {
-                IconButton(onClick = onOpenImage) {
-                    Icon(Icons.Outlined.AddPhotoAlternate, contentDescription = stringResource(R.string.action_open))
+    BoxWithConstraints {
+        val compact = maxWidth < 400.dp
+        TopAppBar(
+            title = {
+                if (activeTool != null) Text(stringResource(activeTool.label))
+            },
+            navigationIcon = {
+                if (activeTool == null) {
+                    IconButton(onClick = onOpenImage) {
+                        Icon(Icons.Outlined.AddPhotoAlternate, contentDescription = stringResource(R.string.action_open))
+                    }
                 }
-            }
-        },
-        actions = {
-            if (activeTool == null) {
-                IconButton(onClick = onHistory, enabled = canUndo || canRedo) {
-                    Icon(Icons.Outlined.History, contentDescription = stringResource(R.string.action_history))
+            },
+            actions = {
+                if (activeTool == null) {
+                    IconButton(onClick = onHistory, enabled = canUndo || canRedo) {
+                        Icon(Icons.Outlined.History, contentDescription = stringResource(R.string.action_history))
+                    }
+                    IconButton(onClick = onUndo, enabled = canUndo) {
+                        Icon(Icons.AutoMirrored.Outlined.Undo, contentDescription = stringResource(R.string.action_undo))
+                    }
+                    IconButton(onClick = onRedo, enabled = canRedo) {
+                        Icon(Icons.AutoMirrored.Outlined.Redo, contentDescription = stringResource(R.string.action_redo))
+                    }
                 }
-                IconButton(onClick = onUndo, enabled = canUndo) {
-                    Icon(Icons.AutoMirrored.Outlined.Undo, contentDescription = stringResource(R.string.action_undo))
+                CompareButton(onCompare)
+                if (activeTool == null && onWidgetPreview != null) {
+                    IconButton(onClick = onWidgetPreview) {
+                        Icon(Icons.Outlined.Smartphone, contentDescription = stringResource(R.string.widget_preview))
+                    }
                 }
-                IconButton(onClick = onRedo, enabled = canRedo) {
-                    Icon(Icons.AutoMirrored.Outlined.Redo, contentDescription = stringResource(R.string.action_redo))
+                if (activeTool == null) {
+                    if (compact) {
+                        // Pantallas estrechas (360 dp): con el texto, los iconos no caben y se montan.
+                        FilledTonalIconButton(onClick = onExport, enabled = exportEnabled, modifier = Modifier.padding(end = 4.dp)) {
+                            Icon(Icons.Outlined.SaveAlt, contentDescription = stringResource(R.string.action_export))
+                        }
+                    } else {
+                        FilledTonalButton(onClick = onExport, enabled = exportEnabled, modifier = Modifier.padding(start = 4.dp, end = 8.dp)) {
+                            Text(stringResource(R.string.action_export))
+                        }
+                    }
                 }
-            }
-            CompareButton(onCompare)
-            if (activeTool == null && onWidgetPreview != null) {
-                IconButton(onClick = onWidgetPreview) {
-                    Icon(Icons.Outlined.Smartphone, contentDescription = stringResource(R.string.widget_preview))
-                }
-            }
-            if (activeTool == null) {
-                FilledTonalButton(onClick = onExport, enabled = exportEnabled, modifier = Modifier.padding(start = 4.dp, end = 8.dp)) {
-                    Text(stringResource(R.string.action_export))
-                }
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = CanvasBackground),
-    )
+            },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = CanvasBackground),
+        )
+    }
 }
 
 /** Mantener pulsado muestra la foto sin ajustes, para comparar. */

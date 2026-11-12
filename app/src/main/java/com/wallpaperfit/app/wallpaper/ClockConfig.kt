@@ -4,6 +4,9 @@ import androidx.annotation.StringRes
 import androidx.annotation.FontRes
 import com.wallpaperfit.app.R
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /** Tipografías del reloj: las del sistema y las incluidas en la app (licencia OFL). */
 enum class ClockFont(
@@ -31,6 +34,10 @@ enum class ClockFont(
     QUICKSAND(R.string.clock_font_Quicksand, R.font.quicksand),
     PLAYFAIR(R.string.clock_font_Playfair, R.font.playfair_display),
     PACIFICO(R.string.clock_font_Pacifico, R.font.pacifico),
+    ;
+
+    /** La fuente de bloqueo solo tiene cifras: la fecha va en la del sistema, como en el reloj de vivo. */
+    val dateUsesSystemFont: Boolean get() = this == VIVO_SERIF
 }
 
 enum class ClockColorMode {
@@ -77,6 +84,10 @@ data class ClockConfig(
 ) {
     /** Formato de la hora: el mismo en el widget, en su imagen y en la vista previa. */
     val timePattern: String get() = if (use24h) "HH:mm" else "h:mm"
+
+    /** Hora y fecha de [now] como las pinta el reloj (widget, su imagen y las vistas previas). */
+    fun format(now: Date): Pair<String, String> =
+        SimpleDateFormat(timePattern, Locale.getDefault()).format(now) to SimpleDateFormat(dateFormat.pattern, Locale.getDefault()).format(now)
 
     /**
      * Ajustes que imitan el reloj de la pantalla de bloqueo (estilo clásico, fuente serif gruesa,

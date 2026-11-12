@@ -5,7 +5,7 @@ name: iOS
 on:
   workflow_dispatch:
   push:
-    # Solo ramas: al mover la etiqueta v1.0 no se vuelve a compilar.
+    # Solo ramas: las etiquetas de versión no vuelven a compilar.
     branches: ["**"]
     paths:
       - "ios/**"
@@ -74,13 +74,13 @@ jobs:
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | tail -20
           mkdir -p build/ipa/Payload
           cp -R build/device/Build/Products/Release-iphoneos/WallpaperEditor.app build/ipa/Payload/
-          (cd build/ipa && zip -qry ../WallpaperEditor-1.0-iOS.ipa Payload)
-          ls -l build/WallpaperEditor-1.0-iOS.ipa
+          (cd build/ipa && zip -qry ../WallpaperEditor-1.0.0-iOS.ipa Payload)
+          ls -l build/WallpaperEditor-1.0.0-iOS.ipa
 
       - uses: actions/upload-artifact@v4
         with:
           name: WallpaperEditor-iOS
           path: |
-            ios/build/WallpaperEditor-1.0-iOS.ipa
+            ios/build/WallpaperEditor-1.0.0-iOS.ipa
             ios/build/shots/*.png
           if-no-files-found: error

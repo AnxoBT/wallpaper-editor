@@ -11,6 +11,7 @@
   <img alt="iPhone (test)" src="https://img.shields.io/badge/iPhone-test-555555?style=flat-square&logo=apple&logoColor=white">
   <img alt="Kotlin · Jetpack Compose" src="https://img.shields.io/badge/Kotlin-Jetpack_Compose-7F52FF?style=flat-square&logo=kotlin&logoColor=white">
   <img alt="LiteRT" src="https://img.shields.io/badge/AI-LiteRT-FF6F00?style=flat-square&logo=tensorflow&logoColor=white">
+  <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square"></a>
 </p>
 
 <br>
@@ -131,12 +132,13 @@ iOS does not let any app change the wallpaper by itself, so the iPhone version w
 
 From the [latest release](https://github.com/AnxoBT/wallpaper-editor/releases/latest):
 
-- **Android**: `WallpaperEditor-v1.0.apk`; open it on your phone (Android 8.0 or later; allow
-  installing from unknown sources when asked). It is signed with a debug key, so it is meant for
-  manual installs, not the Play Store.
-- **Windows**: `WallpaperEditor-1.0-Windows.msi` installs it for your user;
-  `WallpaperEditor-1.0-Windows-portable.zip` runs without installing (`WallpaperEditor.exe`).
-- **iPhone (test)**: `WallpaperEditor-1.0-iOS.ipa`, unsigned; install it with Sideloadly or
+- **Android**: `WallpaperEditor-<version>.apk`; open it on your phone (Android 8.0 or later; allow
+  installing from unknown sources when asked). Every version is signed with the same release key,
+  so new versions install over the previous one and keep your settings. If you installed the first
+  test build (v1.0), uninstall it first (it used a temporary key).
+- **Windows**: `WallpaperEditor-<version>-Windows.msi` installs it for your user;
+  `WallpaperEditor-<version>-Windows-portable.zip` runs without installing (`WallpaperEditor.exe`).
+- **iPhone (test)**: `WallpaperEditor-<version>-iOS.ipa`, unsigned; install it with Sideloadly or
   AltStore.
 
 ### Compatibility
@@ -150,13 +152,14 @@ text detection are bundled and run offline. A launcher that supports live wallpa
 | Platform | Device | Status |
 |---|---|---|
 | Android | vivo V40 SE, Android 14, 1080 × 2400 | Tested daily |
+| Android | Emulators (stock Android): 8.0 (1080 × 1920), 14 (small phone 720 × 1280 and tablet), 16 (1080 × 2400) | Editor, live wallpaper, double tap and clock widget tested |
 | Android | Other brands (Samsung, Xiaomi, Pixel, OnePlus…) | **Not tested yet** |
 | Windows | Windows 11 | Tested |
 | iPhone | iOS 26 simulator | Tested in the simulator only |
 
 The app uses standard Android APIs and never checks the phone brand, so it is expected to work on
 any phone. But every manufacturer changes parts of Android, and so far it has only been tested on
-one vivo phone. Reports from other phones are welcome (see below).
+one vivo phone and in emulators. Reports from other phones are welcome (see below).
 
 **What works on every phone, and what needs vivo**
 
@@ -244,6 +247,12 @@ xcodebuild test -scheme WallpaperEditor -destination "platform=iOS Simulator,nam
 
 Clock fonts are licensed under the SIL Open Font License. The lock-screen style uses the phone's
 own lock-screen font when the system exposes it (vivo), and Playfair Display Black otherwise. All open-source licences can be read in the app under **Settings → Open-source licences**.
+
+### License
+
+Copyright © 2026 AnxoBT. Licensed under the [GNU General Public License v3.0](LICENSE): you can
+use, study, share and modify it, but anything you distribute that is based on this code must be
+released under the same licence, with its source code.
 
 </details>
 
@@ -366,12 +375,12 @@ iOS no deja que ninguna app cambie el fondo por su cuenta, así que la versión 
 
 Desde la [última versión](https://github.com/AnxoBT/wallpaper-editor/releases/latest):
 
-- **Android**: `WallpaperEditor-v1.0.apk`; ábrelo en el móvil (Android 8.0 o superior; permite
-  instalar apps de origen desconocido si te lo pide). Está firmado con una clave de depuración:
-  sirve para instalarlo a mano, no para Play Store.
-- **Windows**: `WallpaperEditor-1.0-Windows.msi` la instala para tu usuario;
-  `WallpaperEditor-1.0-Windows-portable.zip` funciona sin instalar (`WallpaperEditor.exe`).
-- **iPhone (prueba)**: `WallpaperEditor-1.0-iOS.ipa`, sin firmar; se instala con Sideloadly o
+- **Android**: `WallpaperEditor-<version>.apk`; ábrelo en el móvil (Android 8.0 o superior; permite
+  instalar apps de origen desconocido si te lo pide). Todas las versiones van firmadas con la misma
+  clave, así que cada una se instala encima de la anterior y conserva tus ajustes.
+- **Windows**: `WallpaperEditor-<version>-Windows.msi` la instala para tu usuario;
+  `WallpaperEditor-<version>-Windows-portable.zip` funciona sin instalar (`WallpaperEditor.exe`).
+- **iPhone (prueba)**: `WallpaperEditor-<version>-iOS.ipa`, sin firmar; se instala con Sideloadly o
   AltStore.
 
 ### Compatibilidad
@@ -386,13 +395,14 @@ fondos dinámicos).
 | Plataforma | Dispositivo | Estado |
 |---|---|---|
 | Android | vivo V40 SE, Android 14, 1080 × 2400 | Probada a diario |
+| Android | Emuladores (Android puro): 8.0 (1080 × 1920), 14 (móvil pequeño 720 × 1280 y tablet), 16 (1080 × 2400) | Editor, fondo dinámico, doble toque y widget de reloj probados |
 | Android | Otras marcas (Samsung, Xiaomi, Pixel, OnePlus…) | **Sin probar todavía** |
 | Windows | Windows 11 | Probada |
 | iPhone | Simulador de iOS 26 | Solo en el simulador |
 
 La app usa las funciones estándar de Android y no mira la marca del móvil en ningún momento, así
 que debería funcionar en cualquiera. Pero cada fabricante cambia partes de Android, y de momento
-solo se ha probado en un móvil vivo. Se agradecen pruebas en otros móviles (ver abajo).
+solo se ha probado en un móvil vivo y en emuladores. Se agradecen pruebas en otros móviles (ver abajo).
 
 **Qué funciona en todos los móviles y qué necesita vivo**
 
@@ -486,5 +496,11 @@ Las fuentes del reloj tienen licencia SIL Open Font License. El estilo de bloque
 del reloj de bloqueo del propio móvil cuando el sistema la deja leer (vivo), y si no, Playfair
 Display Black. Todas las licencias de código abierto se pueden leer en la app, en
 **Ajustes → Licencias de código abierto**.
+
+### Licencia
+
+Copyright © 2026 AnxoBT. Con licencia [GNU General Public License v3.0](LICENSE): puedes usarla,
+estudiarla, compartirla y modificarla, pero lo que distribuyas basado en este código tiene que
+publicarse con la misma licencia y con su código fuente.
 
 </details>

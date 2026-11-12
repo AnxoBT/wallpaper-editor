@@ -128,6 +128,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -162,9 +163,7 @@ import com.wallpaperfit.app.wallpaper.RotationOrder
 import com.wallpaperfit.app.wallpaper.WallpaperConfig
 import com.wallpaperfit.app.wallpaper.WallpaperFit
 import com.wallpaperfit.app.wallpaper.WallpaperPlace
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import kotlin.math.roundToInt
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -584,20 +583,23 @@ private fun PreviewCard(
     }
 }
 
-/** Reloj como lo pintará el widget, escalado a la vista previa. */
+/** La hora actual, que avanza mientras se ve (una vez por minuto, justo en el cambio de minuto). */
 @Composable
-fun ClockPreview(clock: ClockConfig, color: Color, scale: Float, modifier: Modifier = Modifier) {
-    // La hora avanza mientras la pantalla está abierta (una vez por minuto, en el cambio de minuto).
+fun rememberMinuteTick(): Date {
     val now by produceState(Date()) {
         while (true) {
             delay(60_000L - System.currentTimeMillis() % 60_000L)
             value = Date()
         }
     }
-    val time = SimpleDateFormat(clock.timePattern, Locale.getDefault()).format(now)
-    val date = SimpleDateFormat(clock.dateFormat.pattern, Locale.getDefault()).format(now)
-    val shadowColor = if (color.red * 0.299f + color.green * 0.587f + color.blue * 0.114f > 0.5f) Color(0xAA000000) else Color(0xAAFFFFFF)
-    val shadow = if (clock.shadow == ClockShadow.SOFT) Shadow(shadowColor, Offset(0f, 2f), 10f) else null
+    return now
+}
+
+/** Reloj como lo pintará el widget, escalado a la vista previa. */
+@Composable
+fun ClockPreview(clock: ClockConfig, color: Color, scale: Float, modifier: Modifier = Modifier) {
+    val (time, date) = clock.format(rememberMinuteTick())
+    val shadow = ClockWidget.shadowColor(ClockWidget.shadowVariant(clock, color.toArgb()))?.let { Shadow(Color(it), Offset(0f, 2f), 10f) }
     val align = when (clock.align) {
         ClockAlign.LEFT -> TextAlign.Start
         ClockAlign.CENTER -> TextAlign.Center
@@ -613,9 +615,7 @@ fun ClockPreview(clock: ClockConfig, color: Color, scale: Float, modifier: Modif
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.fillMaxWidth(),
             style = TextStyle(
-                // La fuente de vivo solo tiene cifras: la fecha va en la del sistema, como en el widget.
-                // Como en el reloj de bloqueo de vivo, la fecha va en la fuente del sistema.
-                fontFamily = if (clock.font == ClockFont.VIVO_SERIF) FontFamily.Default else family,
+                fontFamily = if (clock.font.dateUsesSystemFont) FontFamily.Default else family,
                 fontSize = (clock.dateSize * scale).sp,
                 shadow = shadow,
             ),

@@ -13,8 +13,6 @@ object UpdateChecker {
         data object Failed : Result
     }
 
-    fun isNewer(assetSize: Long, assetTime: Long, installedSize: Long, installedAt: Long): Boolean = false
-
     suspend fun check(context: Context): Result = Result.UpToDate
 
     suspend fun checkDaily(context: Context): Update? = null

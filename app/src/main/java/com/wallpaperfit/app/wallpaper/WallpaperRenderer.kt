@@ -170,7 +170,12 @@ object WallpaperRenderer {
     private fun vivoLikeColor(bitmap: Bitmap, darkText: Boolean): Int {
         val small = Bitmap.createScaledBitmap(bitmap, 112, 248, true)
         val seed = try {
-            android.app.WallpaperColors.fromBitmap(small).primaryColor.toArgb()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                android.app.WallpaperColors.fromBitmap(small).primaryColor.toArgb()
+            } else {
+                // Android 8.0 no tiene WallpaperColors: el color medio de la foto como semilla.
+                Bitmap.createScaledBitmap(small, 1, 1, true).let { one -> one.getPixel(0, 0).also { one.recycle() } }
+            }
         } catch (e: Exception) {
             Color.GRAY
         } finally {

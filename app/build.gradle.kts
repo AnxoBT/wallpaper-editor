@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -13,8 +15,8 @@ android {
         applicationId = "com.wallpaperfit.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.0"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -26,11 +28,33 @@ android {
         }
     }
 
+    // Clave propia de Wallpaper Editor (fuera del repo: ~/.android/wallpapereditor-release.jks; datos en
+    // keystore.properties, ignorado por git). Todas las versiones van firmadas con ella para que se instalen
+    // encima de la anterior. Sin ese archivo (otro PC) la release se para en vez de firmar con la de depuración.
+    val claves = rootProject.file("keystore.properties")
+    signingConfigs {
+        if (claves.exists()) {
+            create("wallpapereditor") {
+                val p = Properties().apply { claves.inputStream().use { load(it) } }
+                storeFile = file(p.getProperty("storeFile"))
+                storePassword = p.getProperty("storePassword")
+                keyAlias = p.getProperty("keyAlias")
+                keyPassword = p.getProperty("keyPassword")
+            }
+        }
+    }
+    gradle.taskGraph.whenReady {
+        if (!claves.exists() && allTasks.any { it.name.contains("Release") }) {
+            throw GradleException(
+                "Falta keystore.properties (clave de firma ~/.android/wallpapereditor-release.jks): " +
+                    "sin ella el APK no se instala encima del anterior",
+            )
+        }
+    }
+
     buildTypes {
         release {
-            // APK para instalar a mano: se firma con la clave de depuración local.
-            // Para publicar en Play Store habría que crear un keystore propio.
-            signingConfig = signingConfigs.getByName("debug")
+            if (claves.exists()) signingConfig = signingConfigs.getByName("wallpapereditor")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
