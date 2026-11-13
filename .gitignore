@@ -24,3 +24,6 @@ tools/dev.local.sh
 # Clave de firma de release (datos en ~/.android/wallpapereditor-release.jks): nunca al repositorio
 keystore.properties
 *.jks
+
+# Notas locales (móvil de pruebas, carpetas del usuario): nunca al repositorio
+CLAUDE.local.md
