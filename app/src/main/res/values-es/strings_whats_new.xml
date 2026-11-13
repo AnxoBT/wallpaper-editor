@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Novedades de la versión actual: se enseñan la primera vez que se abre tras actualizar.
+         Al publicar una versión, cambiar estos puntos (uno por línea, separados por \n). -->
+    <string name="whats_new_title">Novedades de la %1$s</string>
+    <string name="whats_new_ok">Entendido</string>
+    <string name="whats_new_items">Mira la foto editada a pantalla completa con el reloj encima (botón del móvil en el editor).\nGuía de bienvenida y elección de idioma la primera vez.\nSegún la hora: de noche solo fotos oscuras, para que no deslumbre.\nAvisa cuando hay versión nueva y, al actualizar, te enseña las novedades.\nArreglos para Android 8, pantallas pequeñas y tablets.</string>
+    <string name="settings_whats_new">Novedades</string>
+    <string name="settings_whats_new_desc">Qué cambia en esta versión</string>
+</resources>

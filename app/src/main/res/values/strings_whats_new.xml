@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Novedades de la versión actual: se enseñan la primera vez que se abre tras actualizar.
+         Al publicar una versión, cambiar estos puntos (uno por línea, separados por \n). -->
+    <string name="whats_new_title">What\'s new in %1$s</string>
+    <string name="whats_new_ok">OK</string>
+    <string name="whats_new_items">Preview the edited photo full screen with the clock on top (phone button in the editor).\nWelcome guide and language choice the first time.\nBy time of day: only dark photos at night, so the screen doesn\'t dazzle.\nIt tells you when there is a new version, and shows what\'s new after updating.\nFixes for Android 8, small screens and tablets.</string>
+    <string name="settings_whats_new">What\'s new</string>
+    <string name="settings_whats_new_desc">What changed in this version</string>
+</resources>

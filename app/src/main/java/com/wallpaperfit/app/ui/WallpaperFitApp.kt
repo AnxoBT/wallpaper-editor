@@ -115,6 +115,9 @@ fun WallpaperFitApp(openWallpapers: Boolean = false, viewModel: EditorViewModel 
     val context = LocalContext.current
     // Guía de la primera vez (idioma y lo básico); se puede volver a ver desde Ajustes.
     var showWelcome by rememberSaveable { mutableStateOf(Welcome.pending(context)) }
+    // Tras actualizar a una versión nueva: resumen de lo que cambia (una vez por versión).
+    var showWhatsNew by rememberSaveable { mutableStateOf(WhatsNew.checkOnLaunch(context) && !showWelcome) }
+    if (showWhatsNew) WhatsNewDialog(remember { WhatsNew.currentVersion(context) }) { showWhatsNew = false }
     LaunchedEffect(openWallpapers) { if (openWallpapers) showWallpapers = true }
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -216,6 +219,7 @@ fun WallpaperFitApp(openWallpapers: Boolean = false, viewModel: EditorViewModel 
                     showSettings = false
                     showWelcome = true
                 },
+                onWhatsNew = { showWhatsNew = true },
             )
         }
         showWallpapers -> {

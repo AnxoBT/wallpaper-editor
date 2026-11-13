@@ -54,6 +54,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.WavingHand
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -92,7 +93,7 @@ import com.wallpaperfit.app.storage.UpdateChecker
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(onBack: () -> Unit, onWelcome: () -> Unit = {}) {
+fun SettingsScreen(onBack: () -> Unit, onWelcome: () -> Unit = {}, onWhatsNew: () -> Unit = {}) {
     val context = LocalContext.current
     val activity = context as? Activity
     val language = remember { AppLanguage.current(context) }
@@ -223,6 +224,7 @@ fun SettingsScreen(onBack: () -> Unit, onWelcome: () -> Unit = {}) {
             item {
                 SettingsCard {
                     LinkRow(Icons.Outlined.Info, stringResource(R.string.settings_version), version, onClick = null)
+                    LinkRow(Icons.Outlined.NewReleases, stringResource(R.string.settings_whats_new), stringResource(R.string.settings_whats_new_desc), onClick = onWhatsNew)
                     LinkRow(Icons.Outlined.WavingHand, stringResource(R.string.settings_welcome), stringResource(R.string.settings_welcome_desc), onClick = onWelcome)
                     UpdateRow()
                     LinkRow(Icons.AutoMirrored.Outlined.OpenInNew, stringResource(R.string.settings_source_code), SOURCE_URL.removePrefix("https://")) {
