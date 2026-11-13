@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Guía de bienvenida (primera vez) -->
+    <string name="welcome_title">Welcome to Wallpaper Editor</string>
+    <string name="welcome_language">Choose your language</string>
+    <string name="welcome_language_note">You can change it any time in Settings.</string>
+    <string name="welcome_edit_title">Fit any photo to your screen</string>
+    <string name="welcome_edit_text">Open a photo and frame it to the exact resolution of your screen. Retouch it with healing, layers, filters and adjustments, and save it as a copy or replace the original.</string>
+    <string name="welcome_wallpapers_title">Your gallery as a wallpaper</string>
+    <string name="welcome_wallpapers_text">In Wallpapers, add folders or photos and filter them with tags. Turn on the live wallpaper and double tap an empty spot on the home screen to change the photo.</string>
+    <string name="welcome_clock_title">A clock that matches each photo</string>
+    <string name="welcome_clock_text">Add the clock widget from Wallpapers and choose its font and colour. In the editor, the phone button shows how the photo will look with the clock.</string>
+    <string name="welcome_skip">Skip</string>
+    <string name="welcome_next">Next</string>
+    <string name="welcome_start">Start</string>
+    <string name="settings_welcome">Welcome guide</string>
+    <string name="settings_welcome_desc">Choose the language and see the basics again</string>
+</resources>

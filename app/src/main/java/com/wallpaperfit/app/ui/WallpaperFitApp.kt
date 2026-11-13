@@ -112,8 +112,10 @@ fun WallpaperFitApp(openWallpapers: Boolean = false, viewModel: EditorViewModel 
     // Pantalla de fondos: desde el inicio, desde el widget del reloj o desde los ajustes del fondo.
     var showWallpapers by rememberSaveable { mutableStateOf(openWallpapers) }
     var showSettings by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(openWallpapers) { if (openWallpapers) showWallpapers = true }
     val context = LocalContext.current
+    // Guía de la primera vez (idioma y lo básico); se puede volver a ver desde Ajustes.
+    var showWelcome by rememberSaveable { mutableStateOf(Welcome.pending(context)) }
+    LaunchedEffect(openWallpapers) { if (openWallpapers) showWallpapers = true }
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(viewModel) {
@@ -181,6 +183,7 @@ fun WallpaperFitApp(openWallpapers: Boolean = false, viewModel: EditorViewModel 
     }
 
     when {
+        showWelcome -> WelcomeScreen(onDone = { showWelcome = false })
         picker != null -> {
             val target = picker!!
             GalleryPicker(
@@ -207,7 +210,13 @@ fun WallpaperFitApp(openWallpapers: Boolean = false, viewModel: EditorViewModel 
         }
         showSettings -> {
             BackHandler { showSettings = false }
-            SettingsScreen(onBack = { showSettings = false })
+            SettingsScreen(
+                onBack = { showSettings = false },
+                onWelcome = {
+                    showSettings = false
+                    showWelcome = true
+                },
+            )
         }
         showWallpapers -> {
             BackHandler {

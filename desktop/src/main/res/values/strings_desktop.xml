@@ -38,4 +38,5 @@
     <string name="heal_hint_shuffle">Paint over a repeated pattern to break it up, keeping its grain · wheel: zoom</string>
     <string name="wp_all_outside_note">Faded photos are not in the slideshow. Clicking one sets it as wallpaper until the next change.</string>
     <string name="tags_cycle_hint">Click once to include, twice to exclude, a third time to remove.</string>
+    <string name="welcome_wallpapers_text">In Wallpapers, add photo folders and filter them with tags. Start the slideshow and your desktop background changes on its own.</string>
 </resources>

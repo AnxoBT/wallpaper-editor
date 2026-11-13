@@ -104,6 +104,13 @@ class AppTourTest {
                 waitForIdle()
                 javax.imageio.ImageIO.write(onAllNodes(isRoot()).onLast().captureToImage().toAwtImage(), "png", File(shots, "$name.png"))
             }
+            // Primera vez: la guía de bienvenida (idioma y dos pasos en Windows, sin el del reloj).
+            shot("00_bienvenida")
+            onNode(hasText(Strings.get(R.string.welcome_next))).performClick()
+            shot("00_bienvenida_editor")
+            onNode(hasText(Strings.get(R.string.welcome_next))).performClick()
+            shot("00_bienvenida_fondos")
+            onNode(hasText(Strings.get(R.string.welcome_start))).performClick()
             shot("01_inicio")
             onNode(hasText(Strings.get(R.string.hub_edit))).performClick()
             waitUntil(timeoutMillis = 20_000L) { onAllNodes(hasText(Strings.get(R.string.picker_all))).fetchSemanticsNodes().isNotEmpty() }

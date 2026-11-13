@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Guía de bienvenida (primera vez) -->
+    <string name="welcome_title">Te damos la bienvenida a Wallpaper Editor</string>
+    <string name="welcome_language">Elige tu idioma</string>
+    <string name="welcome_language_note">Puedes cambiarlo cuando quieras en Ajustes.</string>
+    <string name="welcome_edit_title">Adapta cualquier foto a tu pantalla</string>
+    <string name="welcome_edit_text">Abre una foto y encuádrala a la resolución exacta de tu pantalla. Retócala con el corrector, capas, filtros y ajustes, y guárdala como copia o reemplazando el original.</string>
+    <string name="welcome_wallpapers_title">Tu galería como fondo de pantalla</string>
+    <string name="welcome_wallpapers_text">En Fondos, añade carpetas o fotos y fíltralas con etiquetas. Activa el fondo dinámico y haz doble toque en un hueco del escritorio para cambiar de foto.</string>
+    <string name="welcome_clock_title">Un reloj que combina con cada foto</string>
+    <string name="welcome_clock_text">Añade el widget de reloj desde Fondos y elige su fuente y su color. En el editor, el botón del móvil enseña cómo quedará la foto con el reloj.</string>
+    <string name="welcome_skip">Saltar</string>
+    <string name="welcome_next">Siguiente</string>
+    <string name="welcome_start">Empezar</string>
+    <string name="settings_welcome">Guía de bienvenida</string>
+    <string name="settings_welcome_desc">Elegir idioma y repasar lo básico</string>
+</resources>
