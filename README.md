@@ -136,8 +136,7 @@ From the [latest release](https://github.com/AnxoBT/wallpaper-editor/releases/la
 
 - **Android**: `WallpaperEditor-<version>.apk`; open it on your phone (Android 8.0 or later; allow
   installing from unknown sources when asked). Every version is signed with the same release key,
-  so new versions install over the previous one and keep your settings. If you installed the first
-  test build (v1.0), uninstall it first (it used a temporary key).
+  so new versions install over the previous one and keep your settings.
 - **Windows**: `WallpaperEditor-<version>-Windows.msi` installs it for your user;
   `WallpaperEditor-<version>-Windows-portable.zip` runs without installing (`WallpaperEditor.exe`).
 - **iPhone (test)**: `WallpaperEditor-<version>-iOS.ipa`, unsigned; install it with Sideloadly or
