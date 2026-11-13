@@ -103,6 +103,7 @@
 **Settings**
 
 - English and Spanish; follows your phone's language by default
+- A short welcome guide the first time: choose the language and see the basics (it can be shown again from Settings)
 - Manage tags, import and export them, and read the open-source licences
 - Tells you when a new version is on GitHub (checked at most once a day when you open the app, or by
   hand); that is the only time it goes online
@@ -346,6 +347,7 @@ released under the same licence, with its source code.
 **Ajustes**
 
 - Inglés y español; por defecto usa el idioma de tu móvil
+- Una guía de bienvenida corta la primera vez: elegir idioma y repasar lo básico (se puede volver a ver desde Ajustes)
 - Gestionar las etiquetas, importarlas y exportarlas, y leer las licencias de código abierto
 - Avisa cuando hay una versión nueva en GitHub (lo mira como mucho una vez al día al abrir la app,
   o a mano); es lo único para lo que se conecta a internet
