@@ -39,4 +39,7 @@
     <string name="wp_all_outside_note">Las atenuadas no entran en el pase. Si haces clic en una, se pone de fondo hasta el siguiente cambio.</string>
     <string name="tags_cycle_hint">Un clic la incluye, dos la excluyen y el tercero la quita.</string>
     <string name="welcome_wallpapers_text">En Fondos, añade carpetas de fotos y fíltralas con etiquetas. Inicia el pase y el fondo del escritorio cambia solo.</string>
+    <string name="whats_new_items">Guía de bienvenida y elección de idioma la primera vez.
+Según la hora: de noche solo fotos oscuras, para que no deslumbre.
+Avisa cuando hay versión nueva y, al actualizar, te enseña las novedades.</string>
 </resources>

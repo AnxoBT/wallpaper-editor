@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.LocaleManager
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
 import androidx.annotation.StringRes
@@ -42,6 +43,12 @@ object AppLanguage {
                 option.tag?.let { LocaleList.forLanguageTags(it) } ?: LocaleList.getEmptyLocaleList()
         } else {
             prefs(activity).edit().putString(KEY_LANGUAGE, option.tag).apply()
+            // Los textos que no salen de la pantalla (avisos, widget) usan el contexto de la app: también cambia.
+            val locale = option.tag?.let(Locale::forLanguageTag) ?: Resources.getSystem().configuration.locales[0]
+            Locale.setDefault(locale)
+            val app = activity.applicationContext.resources
+            @Suppress("DEPRECATION")
+            app.updateConfiguration(Configuration(app.configuration).apply { setLocale(locale) }, app.displayMetrics)
             activity.recreate()
         }
     }
