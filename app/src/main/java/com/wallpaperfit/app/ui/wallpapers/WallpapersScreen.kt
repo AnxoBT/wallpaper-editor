@@ -92,6 +92,12 @@ import androidx.compose.material.icons.outlined.Wallpaper
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Job
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.material3.SheetValue
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FilterChip
@@ -927,12 +933,21 @@ private fun AllPhotosSheet(
     val counts = remember(shown, names, tags, filter, query) {
         offeredTags(PhotoTags.counts(shown.map { tagsOf(it) }), filter, query)
     }
-    // Se cierra con la ✕, tocando fuera (arriba), arrastrando la cabecera o con atrás; deslizar
-    // las fotos no (ver KeepScrollInGrid). Si no, al pasarlas deprisa se cerraba sin querer.
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        // Solo la barrita de arriba arrastra la hoja: lo de dentro (cabecera y fotos) no.
+    // Se cierra con la ✕, tocando fuera (arriba), con atrás o bajando desde la parte de arriba
+    // (barrita y título). Un gesto que empieza en las fotos (también entre dos) nunca la cierra:
+    // mientras hay un dedo en la cuadrícula, y un momento después, la hoja no acepta ocultarse.
+    var touchingGrid by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { it != SheetValue.Hidden || !touchingGrid },
+    )
+    val scope = rememberCoroutineScope()
+    val closeByDrag = Modifier.dragDownToClose {
+        scope.launch { sheetState.hide() }.invokeOnCompletion { onDismiss() }
+    }
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(Modifier.consumeSheetDrags()) {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 16.dp, end = 4.dp, top = 4.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.then(closeByDrag).padding(start = 16.dp, end = 4.dp, top = 4.dp)) {
                 Text(
                     stringResource(R.string.wp_all_title, shown.size),
                     style = MaterialTheme.typography.titleLarge,
@@ -1009,7 +1024,7 @@ private fun AllPhotosSheet(
             }
             val gridState = key(filter, untagged, wanted, useFilter) { rememberLazyGridState(initialFirstVisibleItemIndex = shown.indexOf(current).coerceAtLeast(0)) }
             // A toda altura: si no, la hoja cambia de tamaño (y la barra de sitio) según cuántas fotos queden.
-            Box(Modifier.fillMaxSize()) {
+            Box(Modifier.fillMaxSize().watchTouches { touchingGrid = it }) {
                 if (shown.isEmpty()) {
                     Text(
                         stringResource(R.string.tags_no_results),
@@ -1049,11 +1064,58 @@ private fun AllPhotosSheet(
 }
 
 /**
- * Los arrastres que empiezan dentro (cabecera, etiquetas) se quedan aquí y no mueven la hoja; los
- * de la cuadrícula los usa ella antes. Solo la barrita de arriba de la hoja la arrastra.
+ * Nada de lo que se toca dentro (cabecera, etiquetas, fotos y los huecos entre ellas) llega a la
+ * hoja: lo que sus hijos no hayan usado se gasta aquí. Así solo la barrita de arriba la arrastra.
  */
 private fun Modifier.consumeSheetDrags(): Modifier = pointerInput(Unit) {
-    detectVerticalDragGestures { change, _ -> change.consume() }
+    awaitPointerEventScope {
+        while (true) {
+            awaitPointerEvent(PointerEventPass.Main).changes.forEach { it.consume() }
+        }
+    }
+}
+
+/**
+ * Avisa de si hay algún dedo aquí, sin quitarle el gesto a nadie. Al levantarlo sigue en true un
+ * momento: la hoja decide si se cierra justo después de soltar.
+ */
+private fun Modifier.watchTouches(onChange: (Boolean) -> Unit): Modifier = pointerInput(Unit) {
+    coroutineScope {
+        var release: Job? = null
+        awaitPointerEventScope {
+            while (true) {
+                val event = awaitPointerEvent(PointerEventPass.Initial)
+                if (event.changes.any { it.pressed }) {
+                    release?.cancel()
+                    onChange(true)
+                } else if (release?.isActive != true) {
+                    release = launch {
+                        delay(500)
+                        onChange(false)
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** Bajar el dedo desde aquí (más de 48 dp, o deprisa) cierra la hoja. */
+private fun Modifier.dragDownToClose(onClose: () -> Unit): Modifier = pointerInput(Unit) {
+    var total = 0f
+    var closed = false
+    detectVerticalDragGestures(
+        onDragStart = {
+            total = 0f
+            closed = false
+        },
+    ) { change, dy ->
+        change.consume()
+        total += dy
+        if (!closed && total > 48.dp.toPx()) {
+            closed = true
+            onClose()
+        }
+    }
 }
 
 /**

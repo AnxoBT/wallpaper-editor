@@ -4,6 +4,11 @@ All notable changes to Wallpaper Editor. Versions follow [Semantic Versioning](h
 1.0.**1** for fixes, 1.**1**.0 for new features or changes in behaviour.
 [Español más abajo](#registro-de-cambios).
 
+## v1.2.1 — 2026-11-17
+
+- **See all** no longer closes while scrolling the photos, even when the swipe starts between two
+  of them. It closes from the top (handle or title), with the ✕, by tapping outside or with back.
+
 ## v1.2.0 — 2026-11-17
 
 - **Detect text is back**: the healer finds signatures and text and removes them with on-device AI
@@ -45,6 +50,11 @@ First stable version.
 
 Versiones con [Versionado Semántico](https://semver.org/lang/es/): 1.0.**1** para arreglos,
 1.**1**.0 para funciones nuevas o cambios de comportamiento.
+
+## v1.2.1 — 2026-11-17
+
+- **Ver todas** ya no se cierra al deslizar las fotos, aunque el gesto empiece entre dos. Se cierra
+  desde arriba (barrita o título), con la ✕, tocando fuera o con atrás.
 
 ## v1.2.0 — 2026-11-17
 
