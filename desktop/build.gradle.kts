@@ -119,6 +119,9 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+// La misma versión que el APK (versionName de app/): el aviso de actualizaciones compara con ella.
+val appVersion: String = Regex("""versionName = "([^"]+)"""").find(rootProject.file("app/build.gradle.kts").readText())!!.groupValues[1]
+
 compose.desktop {
     application {
         mainClass = "com.wallpaperfit.app.desktop.MainKt"
@@ -126,7 +129,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Msi)
             packageName = "WallpaperEditor"
-            packageVersion = "1.0.0"
+            packageVersion = appVersion
             description = "Wallpaper Editor"
             vendor = "AnxoBT"
             modules("java.desktop", "java.logging", "java.prefs", "jdk.unsupported")
