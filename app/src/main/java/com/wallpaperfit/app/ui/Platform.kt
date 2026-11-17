@@ -10,6 +10,9 @@ import com.wallpaperfit.app.ui.wallpapers.WidgetPreview
  * (desktop/) compila estas mismas pantallas con su propio archivo Platform.kt.
  */
 object PlatformFeatures {
+    /** Detectar y borrar textos con IA en el Corrector. */
+    const val AI_TOOLS = true
+
     /** Poner la foto en la pantalla de bloqueo. */
     const val LOCK_SCREEN = true
 

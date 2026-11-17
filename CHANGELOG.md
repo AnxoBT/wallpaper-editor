@@ -4,6 +4,14 @@ All notable changes to Wallpaper Editor. Versions follow [Semantic Versioning](h
 1.0.**1** for fixes, 1.**1**.0 for new features or changes in behaviour.
 [Español más abajo](#registro-de-cambios).
 
+## v1.2.0 — 2026-11-17
+
+- **Detect text is back**: the healer finds signatures and text and removes them with on-device AI
+  (MI-GAN with ML Kit), which works well for text. The AI stays only for that: by hand the healer
+  fills from the surrounding texture (*Fill*), with the **Blend** and **Shuffle** brushes.
+- Smaller download with the AI included: 46 MB instead of 62 MB (native libraries compressed).
+- Windows, Android and iPhone always share the same version number.
+
 ## v1.1.0 — 2026-11-17
 
 - **Much lighter app**: the Android APK goes from 62 MB to 12 MB.
@@ -37,6 +45,14 @@ First stable version.
 
 Versiones con [Versionado Semántico](https://semver.org/lang/es/): 1.0.**1** para arreglos,
 1.**1**.0 para funciones nuevas o cambios de comportamiento.
+
+## v1.2.0 — 2026-11-17
+
+- **Vuelve Detectar texto**: el Corrector encuentra firmas y textos y los borra con IA en el móvil
+  (MI-GAN con ML Kit), que con textos funciona bien. La IA queda solo para eso: a mano, el Corrector
+  rellena con la textura de alrededor (*Rellenar*), con los pinceles **Mezclar** y **Revolver**.
+- Descarga más ligera con la IA incluida: 46 MB en vez de 62 MB (librerías nativas comprimidas).
+- Windows, Android e iPhone llevan siempre el mismo número de versión.
 
 ## v1.1.0 — 2026-11-17
 

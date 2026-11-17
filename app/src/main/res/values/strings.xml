@@ -242,7 +242,12 @@
     <string name="heal_hint_rect">Drag a rectangle over the signature or object · two fingers to zoom</string>
     <string name="heal_shape_brush">Brush</string>
     <string name="heal_shape_rect">Rectangle</string>
+    <string name="heal_engine_ai">AI</string>
     <string name="heal_engine_classic">Fill</string>
+    <string name="heal_detect_text">Detect text</string>
+    <string name="msg_no_text">No text found. Mark it with the rectangle.</string>
+    <string name="msg_text_found">Text areas marked for removal: %1$d</string>
+    <string name="msg_text_error">Couldn\'t analyze the image</string>
     <string name="brush_size">Brush</string>
     <string name="undo_stroke">Undo stroke</string>
     <string name="processing">Filling…</string>

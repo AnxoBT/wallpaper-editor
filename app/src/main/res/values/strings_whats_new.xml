@@ -4,7 +4,7 @@
          Al publicar una versión, cambiar estos puntos (uno por línea, separados por \n). -->
     <string name="whats_new_title">What\'s new in %1$s</string>
     <string name="whats_new_ok">OK</string>
-    <string name="whats_new_items">Much lighter app: 12 MB instead of 62 MB.\nThe AI healer is gone (its results weren\'t good enough). The healer fills from the surrounding texture, and the Blend and Shuffle brushes stay.</string>
+    <string name="whats_new_items">Detect text is back in the healer: it finds signatures and text and removes them with on-device AI.\nBy hand, the healer fills from the surrounding texture (Fill), plus the Blend and Shuffle brushes.\nSmaller download: 46 MB instead of 62 MB with the AI included.</string>
     <string name="settings_whats_new">What\'s new</string>
     <string name="settings_whats_new_desc">What changed in this version</string>
 </resources>

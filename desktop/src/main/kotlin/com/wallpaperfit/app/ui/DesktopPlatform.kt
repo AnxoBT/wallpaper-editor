@@ -15,6 +15,9 @@ import com.wallpaperfit.app.desktop.PhotoLibrary
 
 /** Lo que cambia en Windows dentro de las pantallas comunes (ver el Platform.kt de Android). */
 object PlatformFeatures {
+    /** El modelo de IA y el reconocimiento de texto solo existen para móviles. */
+    const val AI_TOOLS = false
+
     /** Windows no deja cambiar la pantalla de bloqueo igual que el escritorio. */
     const val LOCK_SCREEN = false
 

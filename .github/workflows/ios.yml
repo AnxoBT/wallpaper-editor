@@ -26,6 +26,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Misma versión que Android
+        # versionName y versionCode de app/build.gradle.kts: el iPhone, Android y Windows llevan siempre el mismo número.
+        run: |
+          V=$(sed -n 's/^ *versionName = "\(.*\)"$/\1/p' ../app/build.gradle.kts)
+          C=$(sed -n 's/^ *versionCode = \([0-9]*\)$/\1/p' ../app/build.gradle.kts)
+          test -n "$V" && test -n "$C"
+          sed -i '' -e "s/MARKETING_VERSION: \".*\"/MARKETING_VERSION: \"$V\"/" -e "s/CURRENT_PROJECT_VERSION: \".*\"/CURRENT_PROJECT_VERSION: \"$C\"/" project.yml
+          grep -E "MARKETING_VERSION|CURRENT_PROJECT_VERSION" project.yml
+          echo "V=$V" >> "$GITHUB_ENV"
+
       - name: Generar el proyecto de Xcode
         run: |
           brew install xcodegen
@@ -78,13 +88,13 @@ jobs:
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | tail -20
           mkdir -p build/ipa/Payload
           cp -R build/device/Build/Products/Release-iphoneos/WallpaperEditor.app build/ipa/Payload/
-          (cd build/ipa && zip -qry ../WallpaperEditor-1.1.0-iOS.ipa Payload)
-          ls -l build/WallpaperEditor-1.1.0-iOS.ipa
+          (cd build/ipa && zip -qry "../WallpaperEditor-$V-iOS.ipa" Payload)
+          ls -l "build/WallpaperEditor-$V-iOS.ipa"
 
       - uses: actions/upload-artifact@v7
         with:
           name: WallpaperEditor-iOS
           path: |
-            ios/build/WallpaperEditor-1.1.0-iOS.ipa
+            ios/build/WallpaperEditor-*-iOS.ipa
             ios/build/shots/*.png
           if-no-files-found: error

@@ -11,7 +11,7 @@
     <string name="settings_version">Version</string>
     <string name="settings_source_code">Source code</string>
     <string name="settings_licenses">Open-source licences</string>
-    <string name="settings_licenses_desc">Fonts and libraries</string>
+    <string name="settings_licenses_desc">Fonts, AI model and libraries</string>
     <string name="action_close">Close</string>
 
     <string name="clock_font_lock">Lock screen</string>

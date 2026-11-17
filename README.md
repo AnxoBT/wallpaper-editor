@@ -28,7 +28,7 @@
   <tr>
     <td width="33%" valign="top">
       <h3>🎨 Editor</h3>
-      Fits any image to your exact screen resolution. Crop, expand with smart fill, remove spots and objects, and save over the original without changing its place in the gallery.
+      Fits any image to your exact screen resolution. Crop, expand with smart fill, remove spots, objects and text (with on-device AI), and save over the original without changing its place in the gallery.
     </td>
     <td width="33%" valign="top">
       <h3>🖼️ Live wallpaper</h3>
@@ -52,7 +52,8 @@
 - **Crop** freely or to a fixed ratio
 - **Expand** any side: a clean background, or new texture (clouds, stars, grain, gradients) invented from the photo without repeating patterns
 - **Heal**: remove spots, small objects and signatures by filling them from the surrounding
-  texture; **Blend** and **Shuffle** brushes to retouch joins and textures by hand
+  texture; **Detect text** finds signatures and text (also CJK, @ and ©) and removes them with
+  on-device AI; **Blend** and **Shuffle** brushes to retouch joins and textures by hand
 - **Layers**: place other images on top, then keep editing the combined result
 - Filters, adjustments, curves, HDR, Glamour, Drama, lens blur, selective brush, vignette and grain
 - Undo and redo history, and compare with the original at any time
@@ -115,7 +116,7 @@ The same editor, tags and tag search run on Windows, and the wallpaper part beco
 - Photos come from folders you choose (Pictures at first); tags use the same JSON file as the phone, matched by file name
 - The mouse wheel zooms and Shift + wheel rotates, where the phone uses pinch and two fingers
 - The slideshow changes while the app is open or in the system tray
-- Not on Windows: the clock widget, tap gestures and the lock screen
+- Not on Windows: text detection, the clock widget, tap gestures and the lock screen
 - Also on Windows: requiring and excluding tags, and copying a tag to a folder
 - It is not signed, so Windows SmartScreen may warn the first time
 
@@ -149,8 +150,8 @@ you about new versions by itself.
 
 ### Compatibility
 
-**Requirements**: Android 8.0 (API 26) or later. No Google Play services needed: everything runs
-offline on the phone. A launcher that supports live wallpapers and widgets
+**Requirements**: Android 8.0 (API 26) or later. No Google Play services needed: text detection
+and its AI model are bundled and run offline. A launcher that supports live wallpapers and widgets
 (almost all do; some Android Go phones don't have live wallpapers).
 
 **Where it has been tested**
@@ -243,6 +244,9 @@ xcodebuild test -scheme WallpaperEditor -destination "platform=iOS Simulator,nam
   and gradients continue without copies of the same patch.
 - **Duplicates**: each photo is reduced to a tiny fingerprint of its shape and colours, so the
   same image is found at another size or compression, while different photos on black do not match.
+- **Removing text**: on-device [ML Kit](https://developers.google.com/ml-kit/vision/text-recognition/v2)
+  finds the lines of text and [MI-GAN](https://github.com/Picsart-AI-Research/MI-GAN) (MIT), running
+  with LiteRT on the GPU (CPU fallback), rebuilds the background under the letters only.
 - **Your data**: settings survive app updates. Android backup only keeps preferences that work on
   any phone, plus photo tags (stored by file name); chosen folders and photos are not backed up,
   because their permissions only apply to the phone where they were granted.
@@ -273,7 +277,7 @@ released under the same licence, with its source code.
   <tr>
     <td width="33%" valign="top">
       <h3>🎨 Editor</h3>
-      Adapta cualquier imagen a la resolución exacta de tu pantalla. Recorta, expande con relleno inteligente, borra manchas y objetos y guarda encima del original sin cambiar su sitio en la galería.
+      Adapta cualquier imagen a la resolución exacta de tu pantalla. Recorta, expande con relleno inteligente, borra manchas, objetos y textos (con IA en el móvil) y guarda encima del original sin cambiar su sitio en la galería.
     </td>
     <td width="33%" valign="top">
       <h3>🖼️ Fondo dinámico</h3>
@@ -297,7 +301,8 @@ released under the same licence, with its source code.
 - **Recortar** libre o con proporción fija
 - **Expandir** cualquier lado: fondo limpio, o textura nueva (nubes, estrellas, grano, degradados) inventada a partir de la foto sin repetir patrones
 - **Corrector**: borra manchas, objetos pequeños y firmas rellenándolos con la textura de alrededor;
-  pinceles **Mezclar** y **Revolver** para retocar uniones y texturas a mano
+  **Detectar texto** encuentra firmas y textos (también chino o japonés, @ y ©) y los borra con IA en
+  el propio móvil; pinceles **Mezclar** y **Revolver** para retocar uniones y texturas a mano
 - **Capas**: pon otras imágenes encima y sigue editando el resultado combinado
 - Filtros, ajustes, curvas, HDR, Glamour, Drama, desenfoque de lente, pincel selectivo, viñeta y
   grano
@@ -362,7 +367,7 @@ El mismo editor, las etiquetas y su búsqueda funcionan en Windows, y la parte d
 - Las fotos salen de las carpetas que elijas (al principio, Imágenes); las etiquetas usan el mismo JSON que el móvil y van por nombre de archivo
 - La rueda del ratón hace zoom y Mayús + rueda gira, donde el móvil usa pellizco y dos dedos
 - El pase cambia mientras la app está abierta o en la bandeja del sistema
-- No está en Windows: widget del reloj, gestos con toques y pantalla de bloqueo
+- No está en Windows: detección de texto, widget del reloj, gestos con toques y pantalla de bloqueo
 - También en Windows: exigir y excluir etiquetas, y copiar una etiqueta a una carpeta
 - No está firmada, así que Windows SmartScreen puede avisar la primera vez
 
@@ -396,8 +401,8 @@ por sí sola cuando hay versión nueva.
 
 ### Compatibilidad
 
-**Requisitos**: Android 8.0 (API 26) o superior. No hacen falta los servicios de Google Play: todo
-funciona sin conexión en el propio móvil. Un escritorio
+**Requisitos**: Android 8.0 (API 26) o superior. No hacen falta los servicios de Google Play: la
+detección de texto y su modelo de IA van dentro de la app y funcionan sin conexión. Un escritorio
 (launcher) que admita fondos dinámicos y widgets (casi todos; algunos móviles Android Go no tienen
 fondos dinámicos).
 
@@ -493,6 +498,9 @@ xcodebuild test -scheme WallpaperEditor -destination "platform=iOS Simulator,nam
   así cielos, estrellas y degradados siguen sin copias del mismo trozo.
 - **Repetidas**: cada foto se reduce a una huella diminuta de su forma y sus colores, así se
   encuentra la misma imagen en otro tamaño o compresión, y fotos distintas sobre negro no coinciden.
+- **Borrar textos**: [ML Kit](https://developers.google.com/ml-kit/vision/text-recognition/v2) en el
+  propio móvil encuentra las líneas de texto y [MI-GAN](https://github.com/Picsart-AI-Research/MI-GAN)
+  (MIT), con LiteRT en la GPU (o en la CPU), reconstruye el fondo solo bajo las letras.
 - **Tus datos**: los ajustes se conservan al actualizar. La copia de seguridad de Android solo
   guarda las preferencias que sirven en cualquier móvil y las etiquetas de las fotos (por nombre de
   archivo); las carpetas y fotos elegidas no, porque sus permisos solo valen en el móvil donde se

@@ -53,9 +53,11 @@ import androidx.compose.material.icons.outlined.FitScreen
 import androidx.compose.material.icons.outlined.Flip
 import androidx.compose.material.icons.outlined.Fullscreen
 import androidx.compose.material.icons.outlined.Rotate90DegreesCw
+import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.VerticalAlignBottom
 import androidx.compose.material.icons.outlined.VerticalAlignCenter
 import androidx.compose.material.icons.outlined.VerticalAlignTop
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -84,6 +86,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.wallpaperfit.app.R
+import com.wallpaperfit.app.ui.PlatformFeatures
 import com.wallpaperfit.app.model.AdjustParam
 import com.wallpaperfit.app.model.Adjustments
 import com.wallpaperfit.app.model.BrushEffect
@@ -830,9 +833,11 @@ fun HealPanel(
     engine: HealEngine,
     canUndoStroke: Boolean,
     isProcessing: Boolean,
+    isDetectingText: Boolean,
     onBrushSizeChange: (Float) -> Unit,
     onShapeChange: (HealShape) -> Unit,
     onEngineChange: (HealEngine) -> Unit,
+    onDetectText: () -> Unit,
     onUndoStroke: () -> Unit,
     canRedoStroke: Boolean,
     onRedoStroke: () -> Unit,
@@ -862,7 +867,8 @@ fun HealPanel(
                 modifier = Modifier.horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                HealEngine.entries.forEach { option ->
+                // La IA solo se usa para borrar los textos detectados; a mano funciona peor que los demás modos.
+                HealEngine.entries.filter { it != HealEngine.AI }.forEach { option ->
                     FilterChip(
                         selected = option == engine,
                         onClick = { onEngineChange(option) },
@@ -871,6 +877,19 @@ fun HealPanel(
                 }
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
+                if (PlatformFeatures.AI_TOOLS) OutlinedButton(
+                    onClick = onDetectText,
+                    enabled = !isDetectingText && !isProcessing,
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                ) {
+                    if (isDetectingText) {
+                        CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                    } else {
+                        Icon(Icons.Outlined.TextFields, contentDescription = null, modifier = Modifier.size(18.dp))
+                    }
+                    Spacer(Modifier.width(6.dp))
+                    Text(stringResource(R.string.heal_detect_text))
+                }
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = onUndoStroke, enabled = canUndoStroke && !isProcessing) {
                     Icon(Icons.AutoMirrored.Outlined.Undo, contentDescription = stringResource(R.string.undo_stroke))

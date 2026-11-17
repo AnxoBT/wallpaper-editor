@@ -20,6 +20,8 @@ val desktopReplaced = listOf(
     "MainActivity.kt",
     "WallpaperFitApplication.kt",
     "processing/ImageLoader.kt",
+    "processing/AiInpainter.kt",
+    "processing/TextDetector.kt",
     "storage/GallerySaver.kt",
     "storage/OriginalReplacer.kt",
     "storage/TagFolderCopy.kt",

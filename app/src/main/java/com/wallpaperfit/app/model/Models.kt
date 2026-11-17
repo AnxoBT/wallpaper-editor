@@ -331,10 +331,19 @@ enum class HealShape {
 
     /** Rectángulo: [HealStroke.points] = izquierda, arriba, derecha, abajo; [HealStroke.radius] es un margen extra. */
     RECT,
+
+    /**
+     * Texto detectado: como [RECT], pero solo se borran los trazos del color [HealStroke.textColor]
+     * dentro del rectángulo, ensanchados [HealStroke.radius].
+     */
+    TEXT,
 }
 
 /** Cómo se rellena una zona del Corrector. */
 enum class HealEngine {
+    /** Modelo generativo: solo para los textos detectados (borra las letras y reconstruye el fondo). */
+    AI,
+
     /** Por parches de la propia foto: ideal para motas sobre fondos lisos (mantiene el color exacto). */
     CLASSIC,
 
@@ -355,6 +364,7 @@ data class HealStroke(
     val radius: Float,
     val shape: HealShape = HealShape.STROKE,
     val engine: HealEngine = HealEngine.CLASSIC,
+    val textColor: Int = 0,
 )
 
 /** Ediciones que cambian el contenido o el tamaño de la imagen base: recorte → expansión → corrector. */

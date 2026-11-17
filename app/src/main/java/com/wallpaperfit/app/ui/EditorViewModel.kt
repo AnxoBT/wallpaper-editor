@@ -59,6 +59,7 @@ import com.wallpaperfit.app.model.Side
 import com.wallpaperfit.app.model.TargetSize
 import com.wallpaperfit.app.model.Tool
 import com.wallpaperfit.app.model.WallpaperTarget
+import com.wallpaperfit.app.processing.AiInpainter
 import com.wallpaperfit.app.processing.BitmapScaler
 import com.wallpaperfit.app.processing.BlurEngine
 import com.wallpaperfit.app.processing.ContentProcessor
@@ -68,6 +69,7 @@ import com.wallpaperfit.app.processing.ImageLoader
 import com.wallpaperfit.app.processing.LayerImages
 import com.wallpaperfit.app.model.ImageLayer
 import com.wallpaperfit.app.model.LayerAction
+import com.wallpaperfit.app.processing.TextDetector
 import com.wallpaperfit.app.storage.GallerySaver
 import com.wallpaperfit.app.storage.OriginalReplacer
 import com.wallpaperfit.app.storage.WallpaperSetter
@@ -98,7 +100,8 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     private val blurEngine = BlurEngine(application)
     private val renderer = EditRenderer(blurEngine)
-    private val contentProcessor = ContentProcessor()
+    private val aiInpainter = AiInpainter(application)
+    private val contentProcessor = ContentProcessor(aiInpainter)
 
     /** Resolución de esta pantalla: es la de partida de cada foto nueva. */
     private val deviceSize = DeviceScreen.size(application)
@@ -452,6 +455,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
+                aiInpainter.warmUp()
                 val bitmap = ImageLoader.load(getApplication<Application>(), uri)
                 originalTarget = withContext(Dispatchers.IO) { OriginalReplacer.resolve(getApplication(), uri) }
                 sourceFolder = withContext(Dispatchers.IO) { originalTarget?.let { folderOf(it.uri) } ?: documentFolder(uri) }
@@ -762,6 +766,59 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setHealEngine(engine: HealEngine) {
         _uiState.update { it.copy(healEngine = engine) }
+    }
+
+    /**
+     * Busca textos (firmas, nombres, marcas de agua) en la imagen y los marca para borrarlos,
+     * uno por línea, con un pequeño margen para cubrir sombras y contornos.
+     */
+    fun detectText() {
+        val state = _uiState.value
+        val set = built.value?.set ?: return
+        val geometry = state.baseGeometry ?: return
+        if (state.isDetectingText) return
+        viewModelScope.launch {
+            _uiState.update { it.copy(isDetectingText = true) }
+            try {
+                val image = BitmapScaler.downscaleToMaxSide(set.full, TEXT_DETECTION_SIDE)
+                val lines = withContext(Dispatchers.Default) {
+                    TextDetector.withNearbyMarks(image, TextDetector.detectLines(image))
+                }
+                val basePerImage = geometry.width.toFloat() / image.width
+                val strokes = lines.map { found ->
+                    val box = found.box
+                    val padding = found.lineHeight * basePerImage * TEXT_PADDING / geometry.scale
+                    // Margen extra a los lados: símbolos como © o iconos junto al nombre no se
+                    // reconocen como parte de la línea.
+                    val side = found.lineHeight * TEXT_SIDE_PADDING
+                    HealStroke(
+                        points = listOf(
+                            ((box.left - side) * basePerImage - geometry.offsetX) / geometry.scale,
+                            (box.top * basePerImage - geometry.offsetY) / geometry.scale,
+                            ((box.right + side) * basePerImage - geometry.offsetX) / geometry.scale,
+                            (box.bottom * basePerImage - geometry.offsetY) / geometry.scale,
+                        ),
+                        radius = padding,
+                        shape = HealShape.TEXT,
+                        engine = HealEngine.AI,
+                        textColor = found.color,
+                    )
+                }
+                if (strokes.isEmpty()) {
+                    showMessage(R.string.msg_no_text)
+                } else {
+                    _uiState.update { s -> s.updateContent { it.copy(heals = it.heals + strokes) }.copy(healRedo = emptyList()) }
+                    showMessage(R.string.msg_text_found, strokes.size)
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.e(TAG, "Error al detectar texto", e)
+                showMessage(R.string.msg_text_error)
+            } finally {
+                _uiState.update { it.copy(isDetectingText = false) }
+            }
+        }
     }
 
     fun undoHealStroke() {
@@ -1439,6 +1496,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
 
     override fun onCleared() {
         blurEngine.close()
+        aiInpainter.close()
         super.onCleared()
     }
 
@@ -1479,5 +1537,11 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
         const val THUMBNAIL_SIDE = 160
         const val PREFERENCES = "settings"
         const val KEY_SAVE_FOLDER = "save_folder"
+        /** Lado mayor de la imagen que se pasa al detector de texto. */
+        const val TEXT_DETECTION_SIDE = 2400
+        /** Margen alrededor de cada línea detectada, en fracción de su altura. */
+        const val TEXT_PADDING = 0.35f
+        /** Margen adicional a izquierda y derecha, en alturas de línea. */
+        const val TEXT_SIDE_PADDING = 1.1f
     }
 }

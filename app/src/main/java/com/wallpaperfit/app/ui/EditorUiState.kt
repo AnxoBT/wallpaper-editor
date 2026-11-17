@@ -60,8 +60,9 @@ data class EditorUiState(
     val healRedo: List<HealStroke> = emptyList(),
     /** Corrector: pintar con pincel o marcar un rectángulo. */
     val healShape: HealShape = HealShape.STROKE,
-    /** Corrector: cómo se rellena la zona marcada. */
+    /** Corrector: cómo se rellena lo que se marca a mano (la IA queda para los textos detectados). */
     val healEngine: HealEngine = HealEngine.CLASSIC,
+    val isDetectingText: Boolean = false,
     /** Curvas: canal que se está editando. */
     val curveChannel: CurveChannel = CurveChannel.RGB,
     /** Pincel: efecto y valor con los que se pinta (0 = borrar). */

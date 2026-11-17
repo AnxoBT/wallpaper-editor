@@ -15,8 +15,8 @@ android {
         applicationId = "com.wallpaperfit.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.1.0"
+        versionCode = 4
+        versionName = "1.2.0"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -76,14 +76,29 @@ android {
         compose = true
     }
 
+    androidResources {
+        // El modelo de IA (borrar textos) se lee mapeado en memoria directamente desde el APK.
+        noCompress += "tflite"
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+        // Librerías nativas (IA y reconocimiento de texto) comprimidas: el APK pesa la mitad al descargarlo.
+        jniLibs {
+            useLegacyPackaging = true
         }
     }
 }
 
 dependencies {
+    implementation(libs.litert)
+    implementation(libs.litert.gpu)
+    implementation(libs.mlkit.text.recognition)
+    implementation(libs.mlkit.text.recognition.chinese)
+    implementation(libs.mlkit.text.recognition.japanese)
+    implementation(libs.mlkit.text.recognition.korean)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
