@@ -4,6 +4,12 @@ All notable changes to Wallpaper Editor. Versions follow [Semantic Versioning](h
 1.0.**1** for fixes, 1.**1**.0 for new features or changes in behaviour.
 [Español más abajo](#registro-de-cambios).
 
+## v1.3.0 — 2026-11-17
+
+- **Clock preview closer to the real screen**: on the home screen, the page dots and a dock with the phone's
+  default phone, messages, browser and camera apps (rounded icons) plus a sample folder; on the lock screen,
+  the padlock and the phone and camera shortcuts.
+
 ## v1.2.1 — 2026-11-17
 
 - **See all** no longer closes while scrolling the photos, even when the swipe starts between two
@@ -50,6 +56,12 @@ First stable version.
 
 Versiones con [Versionado Semántico](https://semver.org/lang/es/): 1.0.**1** para arreglos,
 1.**1**.0 para funciones nuevas o cambios de comportamiento.
+
+## v1.3.0 — 2026-11-17
+
+- **Vista con el reloj más parecida a la pantalla real**: en el escritorio, los puntos de página y un dock con
+  las apps predeterminadas del móvil de teléfono, mensajes, navegador y cámara (iconos redondeados) y una
+  carpeta de ejemplo; en el bloqueo, el candado y los accesos de teléfono y cámara.
 
 ## v1.2.1 — 2026-11-17
 

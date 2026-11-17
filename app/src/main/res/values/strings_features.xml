@@ -113,5 +113,6 @@
     <string name="widget_preview">See with the clock</string>
     <string name="widget_preview_lock">Lock screen · tap for home screen</string>
     <string name="widget_preview_home">Home screen · tap for lock screen</string>
+    <string name="widget_preview_weather">Cloudy</string>
     <string name="widget_preview_home_only">Home screen · back to close</string>
 </resources>

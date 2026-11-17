@@ -74,8 +74,9 @@
 - **Layers**: place other images on top, then keep editing the combined result
 - Filters, adjustments, curves, HDR, Glamour, Drama, lens blur, selective brush, vignette and grain
 - Undo and redo history, and compare with the original at any time
-- See the edited photo full screen with the clock on top: the app's home-screen clock and, on phones
-  whose lock-screen clock can be read (vivo), the lock-screen one too
+- See the edited photo full screen as it will look: the home screen with the app's clock, page dots and a
+  dock with your default apps and, on phones whose lock-screen clock can be read (vivo), the lock screen
+  with its clock, padlock and shortcuts
 - Save as a copy (next to the original, or in a folder you choose) or **replace the original**
   (same name, date and position in its folder), and set it as wallpaper straight away
 - Recently edited photos one tap away; the photo picker opens the last folder you used; a warning
@@ -341,8 +342,9 @@ released under the same licence, with its source code.
 - Filtros, ajustes, curvas, HDR, Glamour, Drama, desenfoque de lente, pincel selectivo, viñeta y
   grano
 - Historial para deshacer y rehacer, y comparar con el original en cualquier momento
-- Ver la foto editada a pantalla completa con el reloj encima: el del escritorio de la app y, en los
-  móviles que dejan leer su reloj de bloqueo (vivo), también ese
+- Ver la foto editada a pantalla completa como quedará: el escritorio con el reloj de la app, los puntos de
+  página y un dock con tus apps predeterminadas y, en los móviles que dejan leer su reloj de bloqueo (vivo),
+  el bloqueo con su reloj, el candado y los accesos
 - Guardar como copia (junto a la original o en la carpeta que elijas) o **reemplazar el original**
   (mismo nombre, fecha y posición en su carpeta), y ponerla de fondo al momento
 - Fotos editadas hace poco a un toque; el selector abre la última carpeta que usaste; aviso antes

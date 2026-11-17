@@ -29,6 +29,28 @@
     <!-- Solo para mirar en GitHub si hay una versión nueva (al abrir la app o a mano). -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Vista previa con el reloj: iconos de las apps predeterminadas y del cajón para el dock (Android 11+). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:name=".WallpaperFitApplication"
         android:allowBackup="true"

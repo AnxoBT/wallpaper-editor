@@ -117,5 +117,6 @@
     <string name="widget_preview">Ver con el reloj</string>
     <string name="widget_preview_lock">Bloqueo · toca para ver el escritorio</string>
     <string name="widget_preview_home">Escritorio · toca para ver el bloqueo</string>
+    <string name="widget_preview_weather">Nublado</string>
     <string name="widget_preview_home_only">Escritorio · atrás para salir</string>
 </resources>
