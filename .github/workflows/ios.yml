@@ -65,6 +65,8 @@ jobs:
           xcodebuild test-without-building -project WallpaperEditor.xcodeproj -scheme WallpaperEditor             -destination "platform=iOS Simulator,id=$UDID" -derivedDataPath build/sim             -only-testing:WallpaperEditorTests | tail -30
 
       - name: Capturas en el simulador
+        # El simulador de GitHub a veces no arranca la accesibilidad ("AX loaded"): las capturas no bloquean el IPA.
+        continue-on-error: true
         run: |
           set -o pipefail
           python3 ci/sample_photos.py build/photos
