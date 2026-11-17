@@ -41,6 +41,23 @@
   </tr>
 </table>
 
+<p align="center">
+  <img src="docs/screenshots/en_home.png" width="19%" alt="Home screen">
+  <img src="docs/screenshots/en_editor.png" width="19%" alt="Editor">
+  <img src="docs/screenshots/en_heal.png" width="19%" alt="Healing">
+  <img src="docs/screenshots/en_filters.png" width="19%" alt="Filters">
+  <img src="docs/screenshots/en_clock.png" width="19%" alt="Preview with the clock">
+</p>
+
+<details>
+<summary><b>See it in action (GIF)</b></summary>
+<br>
+<p align="center">
+  <img src="docs/screenshots/remove_text.gif" width="30%" alt="Detect text removes the text with on-device AI">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/filters.gif" width="30%" alt="Filters">
+</p>
+</details>
 
 ### Features
 
@@ -290,6 +307,23 @@ released under the same licence, with its source code.
   </tr>
 </table>
 
+<p align="center">
+  <img src="docs/screenshots/es_home.png" width="19%" alt="Pantalla de inicio">
+  <img src="docs/screenshots/es_editor.png" width="19%" alt="Editor">
+  <img src="docs/screenshots/es_heal.png" width="19%" alt="Corrector">
+  <img src="docs/screenshots/es_filters.png" width="19%" alt="Filtros">
+  <img src="docs/screenshots/es_clock.png" width="19%" alt="Vista con el reloj">
+</p>
+
+<details>
+<summary><b>Míralo en movimiento (GIF)</b></summary>
+<br>
+<p align="center">
+  <img src="docs/screenshots/remove_text.gif" width="30%" alt="Detectar texto lo borra con IA en el móvil">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/filters.gif" width="30%" alt="Filtros">
+</p>
+</details>
 
 ### Funciones
 
