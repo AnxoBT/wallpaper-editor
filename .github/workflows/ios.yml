@@ -20,7 +20,7 @@ jobs:
       run:
         working-directory: ios
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Generar el proyecto de Xcode
         run: |
@@ -77,7 +77,7 @@ jobs:
           (cd build/ipa && zip -qry ../WallpaperEditor-1.1.0-iOS.ipa Payload)
           ls -l build/WallpaperEditor-1.1.0-iOS.ipa
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: WallpaperEditor-iOS
           path: |
