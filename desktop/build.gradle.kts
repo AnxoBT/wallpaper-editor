@@ -19,8 +19,6 @@ val generatedR = layout.buildDirectory.dir("generated/r")
 val desktopReplaced = listOf(
     "MainActivity.kt",
     "WallpaperFitApplication.kt",
-    "processing/AiInpainter.kt",
-    "processing/TextDetector.kt",
     "processing/ImageLoader.kt",
     "storage/GallerySaver.kt",
     "storage/OriginalReplacer.kt",

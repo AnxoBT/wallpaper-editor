@@ -244,12 +244,7 @@
     <string name="heal_hint_rect">Arrastra un rectángulo sobre la firma o el objeto · dos dedos para zoom</string>
     <string name="heal_shape_brush">Pincel</string>
     <string name="heal_shape_rect">Rectángulo</string>
-    <string name="heal_engine_ai">IA</string>
-    <string name="heal_engine_classic">Clásico</string>
-    <string name="heal_detect_text">Detectar texto</string>
-    <string name="msg_no_text">No se ha encontrado texto. Márcalo con el rectángulo.</string>
-    <string name="msg_text_found">Textos marcados para borrar: %1$d</string>
-    <string name="msg_text_error">No se pudo analizar la imagen</string>
+    <string name="heal_engine_classic">Rellenar</string>
     <string name="brush_size">Pincel</string>
     <string name="undo_stroke">Deshacer trazo</string>
     <string name="processing">Rellenando…</string>

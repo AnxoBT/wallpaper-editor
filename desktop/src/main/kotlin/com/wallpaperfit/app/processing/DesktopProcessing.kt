@@ -20,25 +20,3 @@ object ImageLoader {
         BitmapScaler.downscaleToMaxSide(full, MAX_SOURCE_SIDE).also { if (it !== full) full.recycle() }
     }
 }
-
-/** El modelo de IA solo existe para móviles: en Windows el Corrector usa el método clásico. */
-class AiInpainter(context: Context) : Closeable {
-    fun inpaint512(pixels: IntArray, hole: BooleanArray): IntArray = throw UnsupportedOperationException("Sin IA en Windows")
-
-    fun warmUp() = Unit
-
-    override fun close() = Unit
-
-    companion object {
-        const val SIZE = 512
-    }
-}
-
-/** El reconocimiento de texto solo existe para móviles: en Windows el botón no se muestra. */
-object TextDetector {
-    class Found(val box: RectF, val color: Int, val lineHeight: Float)
-
-    suspend fun detectLines(bitmap: Bitmap): List<RectF> = emptyList()
-
-    fun withNearbyMarks(bitmap: Bitmap, lines: List<RectF>): List<Found> = emptyList()
-}

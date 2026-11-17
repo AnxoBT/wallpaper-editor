@@ -15,8 +15,8 @@ android {
         applicationId = "com.wallpaperfit.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "1.1.0"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -76,11 +76,6 @@ android {
         compose = true
     }
 
-    androidResources {
-        // El modelo de IA se lee mapeado en memoria directamente desde el APK.
-        noCompress += "tflite"
-    }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -102,12 +97,6 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.exifinterface)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.litert)
-    implementation(libs.litert.gpu)
-    implementation(libs.mlkit.text.recognition)
-    implementation(libs.mlkit.text.recognition.chinese)
-    implementation(libs.mlkit.text.recognition.japanese)
-    implementation(libs.mlkit.text.recognition.korean)
 
     debugImplementation(libs.androidx.ui.tooling)
 

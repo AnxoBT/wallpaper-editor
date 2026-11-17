@@ -10,7 +10,6 @@
   <img alt="Windows 10+" src="https://img.shields.io/badge/Windows-10%2B-0078D4?style=flat-square&logo=windows&logoColor=white">
   <img alt="iPhone (test)" src="https://img.shields.io/badge/iPhone-test-555555?style=flat-square&logo=apple&logoColor=white">
   <img alt="Kotlin · Jetpack Compose" src="https://img.shields.io/badge/Kotlin-Jetpack_Compose-7F52FF?style=flat-square&logo=kotlin&logoColor=white">
-  <img alt="LiteRT" src="https://img.shields.io/badge/AI-LiteRT-FF6F00?style=flat-square&logo=tensorflow&logoColor=white">
   <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square"></a>
 </p>
 
@@ -23,13 +22,13 @@
 
 <p align="center">Make any photo fit your screen, then turn your gallery into a live wallpaper.</p>
 
-<p align="center"><a href="https://github.com/AnxoBT/wallpaper-editor/releases/latest"><b>Download</b></a> · Android APK · Windows installer or portable zip · iPhone IPA (test)</p>
+<p align="center"><a href="https://github.com/AnxoBT/wallpaper-editor/releases/latest"><b>Download</b></a> · Android APK · Windows installer or portable zip · iPhone IPA (test) · <a href="CHANGELOG.md">Changelog</a></p>
 
 <table>
   <tr>
     <td width="33%" valign="top">
       <h3>🎨 Editor</h3>
-      Fits any image to your exact screen resolution. Crop, expand with smart fill, remove objects or text with on-device AI, and save over the original without changing its place in the gallery.
+      Fits any image to your exact screen resolution. Crop, expand with smart fill, remove spots and objects, and save over the original without changing its place in the gallery.
     </td>
     <td width="33%" valign="top">
       <h3>🖼️ Live wallpaper</h3>
@@ -52,8 +51,8 @@
   fill empty areas with blur, white or black
 - **Crop** freely or to a fixed ratio
 - **Expand** any side: a clean background, or new texture (clouds, stars, grain, gradients) invented from the photo without repeating patterns
-- **Heal**: remove spots, objects, signatures and text (also CJK, @ and ©) using on-device AI or
-  the classic fill; **Blend** and **Shuffle** brushes to retouch joins and textures by hand
+- **Heal**: remove spots, small objects and signatures by filling them from the surrounding
+  texture; **Blend** and **Shuffle** brushes to retouch joins and textures by hand
 - **Layers**: place other images on top, then keep editing the combined result
 - Filters, adjustments, curves, HDR, Glamour, Drama, lens blur, selective brush, vignette and grain
 - Undo and redo history, and compare with the original at any time
@@ -116,7 +115,7 @@ The same editor, tags and tag search run on Windows, and the wallpaper part beco
 - Photos come from folders you choose (Pictures at first); tags use the same JSON file as the phone, matched by file name
 - The mouse wheel zooms and Shift + wheel rotates, where the phone uses pinch and two fingers
 - The slideshow changes while the app is open or in the system tray
-- Not on Windows: AI healing and text detection (classic healing is there), the clock widget, tap gestures and the lock screen
+- Not on Windows: the clock widget, tap gestures and the lock screen
 - Also on Windows: requiring and excluding tags, and copying a tag to a folder
 - It is not signed, so Windows SmartScreen may warn the first time
 
@@ -142,10 +141,16 @@ From the [latest release](https://github.com/AnxoBT/wallpaper-editor/releases/la
 - **iPhone (test)**: `WallpaperEditor-<version>-iOS.ipa`, unsigned; install it with Sideloadly or
   AltStore.
 
+**Automatic updates on Android (optional)**: add it to [Obtainium](https://github.com/ImranR98/Obtainium)
+and every new release installs straight from GitHub, without looking for the APK. The app also tells
+you about new versions by itself.
+
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/AnxoBT/wallpaper-editor"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" height="48" alt="Get it on Obtainium"></a>
+
 ### Compatibility
 
-**Requirements**: Android 8.0 (API 26) or later. No Google Play services needed: the AI model and
-text detection are bundled and run offline. A launcher that supports live wallpapers and widgets
+**Requirements**: Android 8.0 (API 26) or later. No Google Play services needed: everything runs
+offline on the phone. A launcher that supports live wallpapers and widgets
 (almost all do; some Android Go phones don't have live wallpapers).
 
 **Where it has been tested**
@@ -166,7 +171,7 @@ one vivo phone and in emulators. Reports from other phones are welcome (see belo
 
 | Feature | Any Android | Only on vivo |
 |---|---|---|
-| Editor, layers, filters, AI healing, saving | ✓ | |
+| Editor, layers, filters, healing, saving | ✓ | |
 | Tags, picker, duplicates, photos that don't fit | ✓ | |
 | Live wallpaper, schedules, by time of day | ✓ | |
 | Double and triple tap on the wallpaper | ✓ (if the launcher passes taps on) | |
@@ -238,8 +243,6 @@ xcodebuild test -scheme WallpaperEditor -destination "platform=iOS Simulator,nam
   and gradients continue without copies of the same patch.
 - **Duplicates**: each photo is reduced to a tiny fingerprint of its shape and colours, so the
   same image is found at another size or compression, while different photos on black do not match.
-- **On-device AI**: [MI-GAN](https://github.com/Picsart-AI-Research/MI-GAN) (MIT) running with
-  LiteRT on the GPU, with CPU fallback. Text detection uses on-device ML Kit.
 - **Your data**: settings survive app updates. Android backup only keeps preferences that work on
   any phone, plus photo tags (stored by file name); chosen folders and photos are not backed up,
   because their permissions only apply to the phone where they were granted.
@@ -264,13 +267,13 @@ released under the same licence, with its source code.
 
 <p align="center">Adapta cualquier foto a tu pantalla y convierte tu galería en un fondo de pantalla dinámico.</p>
 
-<p align="center"><a href="https://github.com/AnxoBT/wallpaper-editor/releases/latest"><b>Descargar</b></a> · APK de Android · instalador o zip portable de Windows · IPA de iPhone (prueba)</p>
+<p align="center"><a href="https://github.com/AnxoBT/wallpaper-editor/releases/latest"><b>Descargar</b></a> · APK de Android · instalador o zip portable de Windows · IPA de iPhone (prueba) · <a href="CHANGELOG.md#registro-de-cambios">Cambios</a></p>
 
 <table>
   <tr>
     <td width="33%" valign="top">
       <h3>🎨 Editor</h3>
-      Adapta cualquier imagen a la resolución exacta de tu pantalla. Recorta, expande con relleno inteligente, borra objetos o textos con IA en el móvil y guarda encima del original sin cambiar su sitio en la galería.
+      Adapta cualquier imagen a la resolución exacta de tu pantalla. Recorta, expande con relleno inteligente, borra manchas y objetos y guarda encima del original sin cambiar su sitio en la galería.
     </td>
     <td width="33%" valign="top">
       <h3>🖼️ Fondo dinámico</h3>
@@ -293,9 +296,8 @@ released under the same licence, with its source code.
   centro; rellenar los huecos con desenfoque, blanco o negro
 - **Recortar** libre o con proporción fija
 - **Expandir** cualquier lado: fondo limpio, o textura nueva (nubes, estrellas, grano, degradados) inventada a partir de la foto sin repetir patrones
-- **Corrector**: borra manchas, objetos, firmas y textos (también chino o japonés, @ y ©) con IA en
-  el propio móvil o con el relleno clásico; pinceles **Mezclar** y **Revolver** para retocar uniones
-  y texturas a mano
+- **Corrector**: borra manchas, objetos pequeños y firmas rellenándolos con la textura de alrededor;
+  pinceles **Mezclar** y **Revolver** para retocar uniones y texturas a mano
 - **Capas**: pon otras imágenes encima y sigue editando el resultado combinado
 - Filtros, ajustes, curvas, HDR, Glamour, Drama, desenfoque de lente, pincel selectivo, viñeta y
   grano
@@ -360,7 +362,7 @@ El mismo editor, las etiquetas y su búsqueda funcionan en Windows, y la parte d
 - Las fotos salen de las carpetas que elijas (al principio, Imágenes); las etiquetas usan el mismo JSON que el móvil y van por nombre de archivo
 - La rueda del ratón hace zoom y Mayús + rueda gira, donde el móvil usa pellizco y dos dedos
 - El pase cambia mientras la app está abierta o en la bandeja del sistema
-- No está en Windows: Corrector con IA y detección de texto (sí el Corrector clásico), widget del reloj, gestos con toques y pantalla de bloqueo
+- No está en Windows: widget del reloj, gestos con toques y pantalla de bloqueo
 - También en Windows: exigir y excluir etiquetas, y copiar una etiqueta a una carpeta
 - No está firmada, así que Windows SmartScreen puede avisar la primera vez
 
@@ -386,10 +388,16 @@ Desde la [última versión](https://github.com/AnxoBT/wallpaper-editor/releases/
 - **iPhone (prueba)**: `WallpaperEditor-<version>-iOS.ipa`, sin firmar; se instala con Sideloadly o
   AltStore.
 
+**Actualizaciones automáticas en Android (opcional)**: añádela a [Obtainium](https://github.com/ImranR98/Obtainium)
+y cada versión nueva se instala directamente desde GitHub, sin buscar el APK. La app también avisa
+por sí sola cuando hay versión nueva.
+
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/AnxoBT/wallpaper-editor"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" height="48" alt="Consíguela en Obtainium"></a>
+
 ### Compatibilidad
 
-**Requisitos**: Android 8.0 (API 26) o superior. No hacen falta los servicios de Google Play: el
-modelo de IA y la detección de texto van dentro de la app y funcionan sin conexión. Un escritorio
+**Requisitos**: Android 8.0 (API 26) o superior. No hacen falta los servicios de Google Play: todo
+funciona sin conexión en el propio móvil. Un escritorio
 (launcher) que admita fondos dinámicos y widgets (casi todos; algunos móviles Android Go no tienen
 fondos dinámicos).
 
@@ -411,7 +419,7 @@ solo se ha probado en un móvil vivo y en emuladores. Se agradecen pruebas en ot
 
 | Función | Cualquier Android | Solo en vivo |
 |---|---|---|
-| Editor, capas, filtros, Corrector con IA, guardar | ✓ | |
+| Editor, capas, filtros, Corrector, guardar | ✓ | |
 | Etiquetas, selector, repetidas, fotos que no encajan | ✓ | |
 | Fondo dinámico, horarios, según la hora | ✓ | |
 | Doble y triple toque en el fondo | ✓ (si el escritorio pasa los toques) | |
@@ -485,9 +493,6 @@ xcodebuild test -scheme WallpaperEditor -destination "platform=iOS Simulator,nam
   así cielos, estrellas y degradados siguen sin copias del mismo trozo.
 - **Repetidas**: cada foto se reduce a una huella diminuta de su forma y sus colores, así se
   encuentra la misma imagen en otro tamaño o compresión, y fotos distintas sobre negro no coinciden.
-- **IA en el dispositivo**: [MI-GAN](https://github.com/Picsart-AI-Research/MI-GAN) (MIT) con
-  LiteRT en la GPU, o en la CPU si no hay compatible. El reconocimiento de texto usa ML Kit en el
-  propio móvil.
 - **Tus datos**: los ajustes se conservan al actualizar. La copia de seguridad de Android solo
   guarda las preferencias que sirven en cualquier móvil y las etiquetas de las fotos (por nombre de
   archivo); las carpetas y fotos elegidas no, porque sus permisos solo valen en el móvil donde se

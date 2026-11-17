@@ -65,9 +65,9 @@ data class BaseGeometry(
 /**
  * Construye la imagen base: foto original → Expandir → Corrector.
  * Cachea el resultado de la expansión y de los trazos ya aplicados, de modo que añadir un trazo
- * solo cuesta corregir esa zona. El Corrector puede usar la IA local ([AiInpainter]).
+ * solo cuesta corregir esa zona.
  */
-class ContentProcessor(ai: AiInpainter) {
+class ContentProcessor {
 
     /**
      * Expansión de una foto y, encima, los últimos resultados del Corrector sobre ella (uno por paso,
@@ -78,8 +78,6 @@ class ContentProcessor(ai: AiInpainter) {
     }
 
     private class HealedEntry(val heals: List<HealStroke>, val bitmap: Bitmap)
-
-    private val aiFill = AiFill(ai)
 
     // Un resultado por imagen de partida (la foto y, como mucho, otra con capas combinadas): así
     // deshacer o rehacer una combinación no repite el relleno inteligente ni los retoques.
@@ -273,10 +271,7 @@ class ContentProcessor(ai: AiInpainter) {
         val ys = FloatArray(stroke.points.size / 2) { stroke.points[it * 2 + 1] * geometry.scale + geometry.offsetY }
 
         // Ventana de trabajo: el trazo más un margen amplio del que tomar textura.
-        // La IA necesita ver alrededor algo más que el propio tamaño de la zona para entender la escena.
-        val extent = max(xs.max() - xs.min(), ys.max() - ys.min()) + 2 * radius
-        val aiContext = if (stroke.engine == HealEngine.AI) extent * AI_HEAL_CONTEXT else 0f
-        val margin = maxOf(radius * HEAL_MARGIN_FACTOR, MIN_HEAL_MARGIN, aiContext)
+        val margin = max(radius * HEAL_MARGIN_FACTOR, MIN_HEAL_MARGIN)
         val left = floor(xs.min() - radius - margin).toInt().coerceIn(0, base.width - 1)
         val top = floor(ys.min() - radius - margin).toInt().coerceIn(0, base.height - 1)
         val right = ceil(xs.max() + radius + margin).toInt().coerceIn(left + 1, base.width)
@@ -288,27 +283,10 @@ class ContentProcessor(ai: AiInpainter) {
         base.getPixels(window, 0, windowWidth, left, top, windowWidth, windowHeight)
 
         // Máscara antialias a resolución completa: se usa para fundir el resultado sin bordes duros.
-        // Para un texto detectado, solo sus trazos (si se distinguen del fondo).
-        val textMask = if (stroke.shape == HealShape.TEXT && xs.size >= 2) {
-            TextMask.build(
-                window, windowWidth, windowHeight,
-                (min(xs[0], xs[1]) - left).toInt(), (min(ys[0], ys[1]) - top).toInt(),
-                ceil(max(xs[0], xs[1]) - left).toInt(), ceil(max(ys[0], ys[1]) - top).toInt(),
-                radius.roundToInt(),
-                stroke.textColor.takeIf { it != 0 },
-            )
-        } else {
-            null
-        }
-        val maskAlpha = if (textMask != null) {
-            IntArray(textMask.size) { if (textMask[it]) -1 else 0 }
-        } else {
-            val shape = if (stroke.shape == HealShape.TEXT) HealShape.RECT else stroke.shape
-            val fullMask = strokeMask(windowWidth, windowHeight, xs, ys, if (stroke.shape == HealShape.TEXT) 0f else radius, shape, left.toFloat(), top.toFloat())
-            IntArray(windowWidth * windowHeight).also {
-                fullMask.getPixels(it, 0, windowWidth, 0, 0, windowWidth, windowHeight)
-                fullMask.recycle()
-            }
+        val fullMask = strokeMask(windowWidth, windowHeight, xs, ys, radius, stroke.shape, left.toFloat(), top.toFloat())
+        val maskAlpha = IntArray(windowWidth * windowHeight).also {
+            fullMask.getPixels(it, 0, windowWidth, 0, 0, windowWidth, windowHeight)
+            fullMask.recycle()
         }
         if (maskAlpha.none { (it ushr 24) > 0 }) return
 
@@ -325,7 +303,6 @@ class ContentProcessor(ai: AiInpainter) {
         }
         val hole = BooleanArray(window.size) { (maskAlpha[it] ushr 24) > 0 }
         val filledWindow = when (stroke.engine) {
-            HealEngine.AI -> aiFill.fillHoles(window, windowWidth, windowHeight, hole, checkCancelled)
             HealEngine.CLASSIC ->
                 DetailFill.fill(window, windowWidth, windowHeight, hole, HEAL_WORK_SIDE, DetailFill.Mode.CLEAN, checkCancelled = checkCancelled)
             else -> return
@@ -417,7 +394,6 @@ class ContentProcessor(ai: AiInpainter) {
         private const val FEATHER_FRACTION = 0.04f
         private const val HEAL_MARGIN_FACTOR = 4f
         private const val MIN_HEAL_MARGIN = 40f
-        private const val AI_HEAL_CONTEXT = 0.9f
 
         val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG or Paint.DITHER_FLAG)
     }

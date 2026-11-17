@@ -200,13 +200,12 @@ val FillDetail.label: Int
 val HealShape.label: Int
     get() = when (this) {
         HealShape.STROKE -> R.string.heal_shape_brush
-        HealShape.RECT, HealShape.TEXT -> R.string.heal_shape_rect
+        HealShape.RECT -> R.string.heal_shape_rect
     }
 
 @get:StringRes
 val HealEngine.label: Int
     get() = when (this) {
-        HealEngine.AI -> R.string.heal_engine_ai
         HealEngine.CLASSIC -> R.string.heal_engine_classic
         HealEngine.MIX -> R.string.heal_engine_mix
         HealEngine.SHUFFLE -> R.string.heal_engine_shuffle
