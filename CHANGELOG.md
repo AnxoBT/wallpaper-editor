@@ -4,6 +4,12 @@ All notable changes to Wallpaper Editor. Versions follow [Semantic Versioning](h
 1.0.**1** for fixes, 1.**1**.0 for new features or changes in behaviour.
 [Español más abajo](#registro-de-cambios).
 
+## v1.3.1 — 2026-11-20
+
+- **See all** only closes when you drag it down from the top (handle or title), with the ✕, by
+  tapping outside or with back. Scrolling the photos always scrolls, wherever the
+  swipe starts.
+
 ## v1.3.0 — 2026-11-17
 
 - **Clock preview closer to the real screen**: on the home screen, the page dots and a dock with the phone's
@@ -56,6 +62,12 @@ First stable version.
 
 Versiones con [Versionado Semántico](https://semver.org/lang/es/): 1.0.**1** para arreglos,
 1.**1**.0 para funciones nuevas o cambios de comportamiento.
+
+## v1.3.1 — 2026-11-20
+
+- **Ver todas** solo se cierra arrastrándola hacia abajo desde arriba (barrita o título), con la ✕,
+  tocando fuera o con atrás. Deslizar sobre las fotos siempre hace scroll, empiece donde
+  empiece el gesto.
 
 ## v1.3.0 — 2026-11-17
 

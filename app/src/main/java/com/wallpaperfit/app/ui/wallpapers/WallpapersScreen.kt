@@ -92,10 +92,24 @@ import androidx.compose.material.icons.outlined.Wallpaper
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.Job
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.material3.SheetValue
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Animatable
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.material3.FilledTonalButton
@@ -171,12 +185,6 @@ import com.wallpaperfit.app.wallpaper.WallpaperFit
 import com.wallpaperfit.app.wallpaper.WallpaperPlace
 import java.util.Date
 import kotlin.math.roundToInt
-import androidx.compose.ui.unit.Velocity
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
-import androidx.compose.ui.input.pointer.pointerInput
 
 /**
  * Pantalla "Fondos de pantalla": vista previa con el reloj, fotos del pase, cómo y cuándo
@@ -933,27 +941,17 @@ private fun AllPhotosSheet(
     val counts = remember(shown, names, tags, filter, query) {
         offeredTags(PhotoTags.counts(shown.map { tagsOf(it) }), filter, query)
     }
-    // Se cierra con la ✕, tocando fuera (arriba), con atrás o bajando desde la parte de arriba
-    // (barrita y título). Un gesto que empieza en las fotos (también entre dos) nunca la cierra:
-    // mientras hay un dedo en la cuadrícula, y un momento después, la hoja no acepta ocultarse.
-    var touchingGrid by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { it != SheetValue.Hidden || !touchingGrid },
-    )
-    val scope = rememberCoroutineScope()
-    val closeByDrag = Modifier.dragDownToClose {
-        scope.launch { sheetState.hide() }.invokeOnCompletion { onDismiss() }
-    }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
-        Column(Modifier.consumeSheetDrags()) {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.then(closeByDrag).padding(start = 16.dp, end = 4.dp, top = 4.dp)) {
+    // Se cierra con la ✕, tocando fuera (arriba), con atrás o bajando la parte de arriba (barrita y
+    // título). Lo de debajo hace scroll normal, empiece donde empiece el dedo (también entre fotos).
+    TopDragSheet(onDismiss = onDismiss) { close, dragArea ->
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = dragArea.padding(start = 16.dp, end = 4.dp, top = 4.dp)) {
                 Text(
                     stringResource(R.string.wp_all_title, shown.size),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(1f),
                 )
-                IconButton(onClick = onDismiss) {
+                IconButton(onClick = close) {
                     Icon(Icons.Outlined.Close, contentDescription = stringResource(R.string.action_close))
                 }
             }
@@ -1024,7 +1022,7 @@ private fun AllPhotosSheet(
             }
             val gridState = key(filter, untagged, wanted, useFilter) { rememberLazyGridState(initialFirstVisibleItemIndex = shown.indexOf(current).coerceAtLeast(0)) }
             // A toda altura: si no, la hoja cambia de tamaño (y la barra de sitio) según cuántas fotos queden.
-            Box(Modifier.fillMaxSize().watchTouches { touchingGrid = it }) {
+            Box(Modifier.fillMaxSize()) {
                 if (shown.isEmpty()) {
                     Text(
                         stringResource(R.string.tags_no_results),
@@ -1037,7 +1035,7 @@ private fun AllPhotosSheet(
                     )
                 }
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().nestedScroll(KeepScrollInGrid),
+                    modifier = Modifier.fillMaxSize(),
                     columns = GridCells.Fixed(3),
                     state = gridState,
                     // A la derecha queda sitio para la barra de desplazamiento rápido.
@@ -1064,68 +1062,78 @@ private fun AllPhotosSheet(
 }
 
 /**
- * Nada de lo que se toca dentro (cabecera, etiquetas, fotos y los huecos entre ellas) llega a la
- * hoja: lo que sus hijos no hayan usado se gasta aquí. Así solo la barrita de arriba la arrastra.
+ * Hoja que sube desde abajo y solo se arrastra (para cerrarla) desde arriba: la barrita y lo que
+ * [content] marque con `dragArea` (aquí, el título). Todo lo demás es contenido normal: las listas
+ * hacen scroll sin que la hoja se mueva nunca. También se cierra tocando fuera, con atrás o con
+ * `close` (anima la bajada y luego llama a [onDismiss]).
  */
-private fun Modifier.consumeSheetDrags(): Modifier = pointerInput(Unit) {
-    awaitPointerEventScope {
-        while (true) {
-            awaitPointerEvent(PointerEventPass.Main).changes.forEach { it.consume() }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TopDragSheet(onDismiss: () -> Unit, content: @Composable (close: () -> Unit, dragArea: Modifier) -> Unit) {
+    val scope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    // Cuánto está bajada la hoja (px); empieza fuera de la pantalla y sube al abrirse.
+    val offset = remember { Animatable(Float.MAX_VALUE) }
+    var height by remember { mutableFloatStateOf(0f) }
+    var closing by remember { mutableStateOf(false) }
+    fun close() {
+        if (closing) return
+        closing = true
+        scope.launch {
+            offset.animateTo(height, tween(220))
+            onDismiss()
         }
     }
-}
-
-/**
- * Avisa de si hay algún dedo aquí, sin quitarle el gesto a nadie. Al levantarlo sigue en true un
- * momento: la hoja decide si se cierra justo después de soltar.
- */
-private fun Modifier.watchTouches(onChange: (Boolean) -> Unit): Modifier = pointerInput(Unit) {
-    coroutineScope {
-        var release: Job? = null
-        awaitPointerEventScope {
-            while (true) {
-                val event = awaitPointerEvent(PointerEventPass.Initial)
-                if (event.changes.any { it.pressed }) {
-                    release?.cancel()
-                    onChange(true)
-                } else if (release?.isActive != true) {
-                    release = launch {
-                        delay(500)
-                        onChange(false)
+    val dragState = rememberDraggableState { dy -> scope.launch { offset.snapTo((offset.value + dy).coerceAtLeast(0f)) } }
+    val dragArea = Modifier.draggable(
+        state = dragState,
+        orientation = Orientation.Vertical,
+        onDragStopped = { velocity ->
+            // Bajada de más de un cuarto, o un tirón hacia abajo: se cierra; si no, vuelve arriba.
+            if (offset.value > height / 4 || velocity > with(density) { 1000.dp.toPx() }) close() else offset.animateTo(0f, tween(200))
+        },
+    )
+    Dialog(
+        onDismissRequest = ::close,
+        properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false),
+    ) {
+        val shown = if (height > 0f) 1f - (offset.value / height).coerceIn(0f, 1f) else 0f
+        Box(Modifier.fillMaxSize()) {
+            // Fondo oscurecido: tocarlo cierra.
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.32f * shown))
+                    .clickable(remember { MutableInteractionSource() }, indication = null, onClick = ::close),
+            )
+            Surface(
+                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxSize()
+                    .padding(top = 48.dp)
+                    .windowInsetsPadding(WindowInsets.statusBars)
+                    .onSizeChanged {
+                        if (height == 0f) {
+                            height = it.height.toFloat()
+                            scope.launch {
+                                offset.snapTo(height)
+                                offset.animateTo(0f, tween(260))
+                            }
+                        }
                     }
+                    .offset { IntOffset(0, offset.value.coerceAtMost(if (height > 0f) height else 100_000f).roundToInt()) },
+            ) {
+                Column(Modifier.windowInsetsPadding(WindowInsets.navigationBars)) {
+                    Box(Modifier.fillMaxWidth().then(dragArea), contentAlignment = Alignment.Center) {
+                        BottomSheetDefaults.DragHandle()
+                    }
+                    content(::close, dragArea)
                 }
             }
         }
     }
-}
-
-/** Bajar el dedo desde aquí (más de 48 dp, o deprisa) cierra la hoja. */
-private fun Modifier.dragDownToClose(onClose: () -> Unit): Modifier = pointerInput(Unit) {
-    var total = 0f
-    var closed = false
-    detectVerticalDragGestures(
-        onDragStart = {
-            total = 0f
-            closed = false
-        },
-    ) { change, dy ->
-        change.consume()
-        total += dy
-        if (!closed && total > 48.dp.toPx()) {
-            closed = true
-            onClose()
-        }
-    }
-}
-
-/**
- * Lo que sobra de un deslizamiento en la cuadrícula (al llegar arriba, o un lanzamiento rápido)
- * se queda en ella en vez de pasar a la hoja, que si no lo usa para bajar y cerrarse.
- */
-private object KeepScrollInGrid : NestedScrollConnection {
-    override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset = available
-
-    override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity = available
 }
 
 /** Fotos que se ven en "Ver todas" pero no entran en el pase por el filtro. */

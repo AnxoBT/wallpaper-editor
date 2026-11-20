@@ -4,7 +4,7 @@
          Al publicar una versión, cambiar estos puntos (uno por línea, separados por \n). -->
     <string name="whats_new_title">What\'s new in %1$s</string>
     <string name="whats_new_ok">OK</string>
-    <string name="whats_new_items">The clock preview shows the screen as it really looks: on the home screen, the page dots and a dock with your phone, messages, browser and camera apps; on the lock screen, the padlock and the shortcuts at the bottom.</string>
+    <string name="whats_new_items">See all only closes when you drag it from the top (handle or title); scrolling the photos always scrolls.</string>
     <string name="settings_whats_new">What\'s new</string>
     <string name="settings_whats_new_desc">What changed in this version</string>
 </resources>
